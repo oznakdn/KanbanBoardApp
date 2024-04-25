@@ -39,8 +39,8 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "687faf32-eea7-4d8d-9b2e-b93819f3fb50",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(594),
+                            Id = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7250),
                             Description = "First Board Description",
                             Title = "First Board"
                         });
@@ -112,35 +112,35 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9dd31745-ac56-458b-91d5-c512f10cb891",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(986),
+                            Id = "a8c61dbc-7091-41d1-bc9f-d11d59c69228",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7708),
                             Description = "First Issue Description",
                             IssueType = 1,
                             Order = 0,
                             Priority = 2,
-                            StatusId = "cc29846c-4d8c-41d0-b57b-1d962b218370",
+                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
                             Summary = "First Issue"
                         },
                         new
                         {
-                            Id = "7c1f9efe-9ddc-44f7-86dc-6c9be5ca7781",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(992),
+                            Id = "8a5e18b5-ec44-4785-97ae-a13ed61224d5",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7713),
                             Description = "Second Issue Description",
                             IssueType = 0,
                             Order = 1,
                             Priority = 4,
-                            StatusId = "cc29846c-4d8c-41d0-b57b-1d962b218370",
+                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
                             Summary = "Second Issue"
                         },
                         new
                         {
-                            Id = "d48e55ad-de1d-4764-85ae-227948ef16e2",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(1002),
+                            Id = "5dfd93a0-476f-49cc-b187-096ee968abf8",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7717),
                             Description = "Third Issue Description",
                             IssueType = 2,
                             Order = 2,
                             Priority = 1,
-                            StatusId = "cc29846c-4d8c-41d0-b57b-1d962b218370",
+                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
                             Summary = "Third Issue"
                         });
                 });
@@ -170,30 +170,30 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cc29846c-4d8c-41d0-b57b-1d962b218370",
-                            BoardId = "687faf32-eea7-4d8d-9b2e-b93819f3fb50",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(935),
+                            Id = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
+                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7585),
                             Name = "To Do"
                         },
                         new
                         {
-                            Id = "39e47983-295f-4bcc-876a-6a6909858388",
-                            BoardId = "687faf32-eea7-4d8d-9b2e-b93819f3fb50",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(941),
+                            Id = "3bc6432b-a186-4b9a-ae9d-dbcbd39d9102",
+                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7591),
                             Name = "In Progress"
                         },
                         new
                         {
-                            Id = "d6996074-6129-47ed-9dcc-0cfe41a5b886",
-                            BoardId = "687faf32-eea7-4d8d-9b2e-b93819f3fb50",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(944),
+                            Id = "6c294f46-95e0-49a6-a40d-d889617901ab",
+                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7656),
                             Name = "Testing"
                         },
                         new
                         {
-                            Id = "322bdfd0-8856-4525-9839-d486123a1e9f",
-                            BoardId = "687faf32-eea7-4d8d-9b2e-b93819f3fb50",
-                            CreatedDate = new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(948),
+                            Id = "70026360-304a-4eb4-b55a-98d8d16e78bd",
+                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
+                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7660),
                             Name = "Done"
                         });
                 });

@@ -283,17 +283,17 @@ namespace KanbanBoard.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Boards",
                 columns: new[] { "Id", "CreatedDate", "Description", "Title" },
-                values: new object[] { "687faf32-eea7-4d8d-9b2e-b93819f3fb50", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(594), "First Board Description", "First Board" });
+                values: new object[] { "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7250), "First Board Description", "First Board" });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
                 columns: new[] { "Id", "BoardId", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "322bdfd0-8856-4525-9839-d486123a1e9f", "687faf32-eea7-4d8d-9b2e-b93819f3fb50", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(948), "Done" },
-                    { "39e47983-295f-4bcc-876a-6a6909858388", "687faf32-eea7-4d8d-9b2e-b93819f3fb50", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(941), "In Progress" },
-                    { "cc29846c-4d8c-41d0-b57b-1d962b218370", "687faf32-eea7-4d8d-9b2e-b93819f3fb50", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(935), "To Do" },
-                    { "d6996074-6129-47ed-9dcc-0cfe41a5b886", "687faf32-eea7-4d8d-9b2e-b93819f3fb50", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(944), "Testing" }
+                    { "3bc6432b-a186-4b9a-ae9d-dbcbd39d9102", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7591), "In Progress" },
+                    { "6c294f46-95e0-49a6-a40d-d889617901ab", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7656), "Testing" },
+                    { "70026360-304a-4eb4-b55a-98d8d16e78bd", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7660), "Done" },
+                    { "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7585), "To Do" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,9 +301,9 @@ namespace KanbanBoard.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "IssueType", "Order", "Priority", "StatusId", "Summary" },
                 values: new object[,]
                 {
-                    { "7c1f9efe-9ddc-44f7-86dc-6c9be5ca7781", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(992), "Second Issue Description", 0, 1, 4, "cc29846c-4d8c-41d0-b57b-1d962b218370", "Second Issue" },
-                    { "9dd31745-ac56-458b-91d5-c512f10cb891", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(986), "First Issue Description", 1, 0, 2, "cc29846c-4d8c-41d0-b57b-1d962b218370", "First Issue" },
-                    { "d48e55ad-de1d-4764-85ae-227948ef16e2", new DateTime(2024, 4, 25, 11, 49, 32, 11, DateTimeKind.Local).AddTicks(1002), "Third Issue Description", 2, 2, 1, "cc29846c-4d8c-41d0-b57b-1d962b218370", "Third Issue" }
+                    { "5dfd93a0-476f-49cc-b187-096ee968abf8", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7717), "Third Issue Description", 2, 2, 1, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "Third Issue" },
+                    { "8a5e18b5-ec44-4785-97ae-a13ed61224d5", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7713), "Second Issue Description", 0, 1, 4, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "Second Issue" },
+                    { "a8c61dbc-7091-41d1-bc9f-d11d59c69228", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7708), "First Issue Description", 1, 0, 2, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "First Issue" }
                 });
 
             migrationBuilder.CreateIndex(

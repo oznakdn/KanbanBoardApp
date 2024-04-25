@@ -27,6 +27,7 @@ public static class ServiceConfigurationExtension
 
 
         services.AddScoped<IIssueRepository, IssueRepository>();
+        services.AddScoped<IBoardRepository, BoardRepository>();
         services.AddScoped<IRepositoryManager, RepositoryManager>();
 
     }
