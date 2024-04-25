@@ -1,6 +1,4 @@
-﻿@model List<KanbanBoard.Application.Dtos.BoardDtos.GetBoardDto>
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -10,18 +8,45 @@
 
 <hr />
 
-<div class="row mt-3 d-flex justify-content-between">
-    @foreach (var board in Model)
-	{
-        <a  asp-controller="Board" asp-action="Index" asp-route-id="@board.Id" style="text-decoration-line:none;">
-            <div class="col-4 text-center text-white">
-                <div class="card bg-primary opacity-50">
-                    <div class="card-body">
-                        <div>@board.Title</div>
-                    </div>
-                </div>
-            </div>
-        </a>
-	}
-    
+<div class="row mt-5 d-flex justify-content-between" id="boards">
+
 </div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(() => {
+
+            $.ajax({
+                url: "/Home/Boards",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    let strData = JSON.stringify(data);
+                    console.log(strData);
+                    let html = "";
+                    $.each(data, (index, value) => {
+                        html += `<a  href="#" style="text-decoration-line:none;">
+                                        <div class="col-4 text-center text-white">
+                                            <div class="card bg-primary opacity-50">
+                                                 <div class="card-body">
+                                                     <div>${value.title}</div>
+                                                  </div>
+                                                 </div>
+                                           </div>
+                                     </a>`
+                    });
+                    $('#boards').html(html);
+                }
+
+            });
+
+        });
+    </script>
+
+}
+
+<!--
+
+asp-controller="Board" asp-action="Index" asp-route-id="${value.id}"
+-->

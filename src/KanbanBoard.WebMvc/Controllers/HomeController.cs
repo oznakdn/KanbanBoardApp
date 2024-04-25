@@ -1,7 +1,10 @@
-﻿using KanbanBoard.Application.Services.Manager;
+﻿using KanbanBoard.Application.Dtos.BoardDtos;
+using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.WebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace KanbanBoard.WebMvc.Controllers
 {
@@ -16,10 +19,15 @@ namespace KanbanBoard.WebMvc.Controllers
             _manager = manager;
         }
 
-        public async Task<IActionResult> Index(CancellationToken cancellation = default)
+        public IActionResult Index()
         {
-            var boards = await _manager.Board.GetBoardsAsync(cancellation);
-            return View(boards);
+            return View();
+        }
+
+        public async Task<JsonResult> Boards(CancellationToken cancellation = default)
+        {
+            IEnumerable<GetBoardDto> boards = await _manager.Board.GetBoardsAsync(cancellation);
+            return Json(boards);
         }
 
         public IActionResult Privacy()
