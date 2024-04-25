@@ -1,4 +1,4 @@
-﻿using KanbanBoard.Application.Dtos.IssueDto;
+﻿using KanbanBoard.Application.Dtos.IssueDtos;
 
 namespace KanbanBoard.Application.Services.Interface;
 

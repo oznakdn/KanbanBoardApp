@@ -14,7 +14,9 @@ public static class ServiceConfigurationExtension
         services.AddInfrastructureContainer(configuration);
 
         services.AddScoped<IIssueService, IssueService>();
+        services.AddScoped<IBoardService, BoardService>();
 
         services.AddScoped<IServiceManager,ServiceManager>();
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using KanbanBoard.Application.Dtos.IssueDto;
+﻿using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Services.Interface;
 using KanbanBoard.Core.Models;
 using KanbanBoard.Infrastructure.Repositories.Manager;

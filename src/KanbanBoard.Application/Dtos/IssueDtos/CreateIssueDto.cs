@@ -1,6 +1,6 @@
 ﻿using KanbanBoard.Core.Enums;
 
-namespace KanbanBoard.Application.Dtos.IssueDto;
+namespace KanbanBoard.Application.Dtos.IssueDtos;
 
 public class CreateIssueDto
 {
