@@ -15,6 +15,8 @@ public static class ServiceConfigurationExtension
 
         services.AddScoped<IIssueService, IssueService>();
         services.AddScoped<IBoardService, BoardService>();
+        services.AddScoped<IStatusService, StatusService>();
+
 
         services.AddScoped<IServiceManager,ServiceManager>();
 

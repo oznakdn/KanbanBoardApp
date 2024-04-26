@@ -4,4 +4,6 @@ public class UpdateIssueStatusDto
 {
     public string IssueId { get; set; }
     public string StatusId { get; set; }
+    public int NewOrder { get; set; }
+
 }

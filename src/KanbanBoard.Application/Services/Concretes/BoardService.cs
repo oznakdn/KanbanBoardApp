@@ -1,6 +1,4 @@
 ﻿using KanbanBoard.Application.Dtos.BoardDtos;
-using KanbanBoard.Application.Dtos.IssueDtos;
-using KanbanBoard.Application.Dtos.StatusDtos;
 using KanbanBoard.Application.Services.Interface;
 using KanbanBoard.Infrastructure.Repositories.Manager;
 
@@ -14,6 +12,17 @@ public class BoardService : IBoardService
         _repository = repository;
     }
 
+    public async Task<GetBoardDto> GetBoardByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var board = await _repository.Board.FindByIdAsync(id, cancellationToken);
+        return new GetBoardDto
+        {
+            Id = board.Id,
+            Title = board.Title,
+            Description = board.Description
+        };
+    }
+
     public async Task<IEnumerable<GetBoardDto>> GetBoardsAsync(CancellationToken cancellationToken = default)
     {
         var boards = await _repository.Board.FindAllAsync(cancellationToken,includes:x=>x.Statuses);
@@ -22,22 +31,6 @@ public class BoardService : IBoardService
             Id = x.Id,
             Title = x.Title,
             Description = x.Description,
-            //Status = x.Statuses.Select(y => new GetStatusDto
-            //{
-            //    Id = y.Id,
-            //    Name = y.Name,
-            //    BoardId = y.BoardId,
-            //    Issues = y.Issues.Select(z => new GetIssueDto
-            //    {
-            //        Id = z.Id,
-            //        StatusId = z.StatusId,
-            //        Summary = z.Summary,
-            //        Description = z.Description,
-            //        IssueType = z.IssueType,
-            //        Order = z.Order,
-            //        Priority = z.Priority
-            //    }).ToList()
-            //}).ToList()
         }).ToList();
     }
 }
