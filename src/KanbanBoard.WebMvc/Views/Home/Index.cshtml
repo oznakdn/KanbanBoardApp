@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
+<div class="row mt-3">
     <div class="display-6">Projects</div>
 </div>
 
@@ -26,7 +26,7 @@
                     console.log(strData);
                     let html = "";
                     $.each(data, (index, value) => {
-                        html += `<a  href="#" style="text-decoration-line:none;">
+                        html += `<a  href="/Status/Index/${value.id}" style="text-decoration-line:none;">
                                         <div class="col-4 text-center text-white">
                                             <div class="card bg-primary opacity-50">
                                                  <div class="card-body">
