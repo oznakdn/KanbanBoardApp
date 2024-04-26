@@ -2,6 +2,7 @@
 using KanbanBoard.Infrastructure.EFContext;
 using KanbanBoard.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace KanbanBoard.Infrastructure.Repositories.Abstract;
@@ -27,7 +28,7 @@ public abstract class AbstractRepository<T> : IRepository<T>
 
     public virtual void Insers(T model) => _dbSet.Add(model);
 
-    public virtual void Update(T model) => _dbSet.Update(model);
+    public virtual void Update(T model) => _dbContext.Entry<T>(model).State = EntityState.Modified;
 
     public virtual void Delete(T model) => _dbSet.Remove(model);
 
@@ -72,7 +73,7 @@ public abstract class AbstractRepository<T> : IRepository<T>
 
     public async Task<T> FindByIdAsync(string id, CancellationToken cancellationToken = default, params Expression<Func<T, object>>[] includes)
     {
-        IQueryable<T> query = _dbSet.Where(x=>x.Id == id).AsNoTracking();
+        IQueryable<T> query = _dbSet.Where(x => x.Id == id).AsNoTracking();
 
         if (includes.Length > 0)
         {
