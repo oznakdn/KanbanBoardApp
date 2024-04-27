@@ -41,27 +41,35 @@ public class IssueService : IIssueService
         if (issue.StatusId != updateIssueStatus.StatusId)
         {
 
-            // Issue order 0 ise ve status da ondan baska issue var ise ? once issue statusunu degistir ve yeni liste icindeki issularin orderlarini yeniden duzenle
-            if (issue.Order == 0)
+            issue.StatusId = updateIssueStatus.StatusId;
+            issue.Order = updateIssueStatus.NewOrder;
+            _repository.Issue.Update(issue);
+            await _repository.SaveAsync(cancellationToken);
+
+            var status = await _repository.Status.FindByIdAsync(updateIssueStatus.StatusId, cancellationToken, x => x.Issues);
+
+            if (status.Issues.Count > 1)
             {
-                issue.StatusId = updateIssueStatus.StatusId;
-                issue.Order = updateIssueStatus.NewOrder;
-                _repository.Issue.Update(issue);
-                await _repository.SaveAsync(cancellationToken);
-
-
-                var newIssue = await _repository.Issue.FindByIdAsync(updateIssueStatus.IssueId, cancellationToken, x => x.Status!);
-
-                //TODO: Burada yeni statudeki issularin siralamasi duzenlenecek
-                //await UpdateOrder(updateIssueStatus, newIssue, cancellationToken);
-
-
-                //Farkli status'e gecen issue'nun onceki statusundeki issue'larin Order' larini degistirir
-                var oldStatus = await _repository.Status.FindByIdAsync(oldStatusId, cancellationToken, x => x.Issues);
-
-                if (oldStatus.Issues.Count > 0)
+                foreach (var item in status.Issues)
                 {
-                    foreach (var item in oldStatus.Issues)
+                    if (item.Id == issue.Id) continue;
+
+                    if (item.Order >= issue.Order)
+                    {
+                        item.Order++;
+                        _repository.Issue.Update(item);
+                        await _repository.SaveAsync(cancellationToken);
+                    }
+                }
+            }
+
+            // Old Status item updated
+            var oldStatus = await _repository.Status.FindByIdAsync(oldStatusId, cancellationToken, x => x.Issues);
+            if (oldStatus.Issues.Count > 0)
+            {
+                foreach (var item in oldStatus.Issues)
+                {
+                    if(item.Order > updateIssueStatus.OldOrder)
                     {
                         item.Order--;
                         _repository.Issue.Update(item);
@@ -69,66 +77,6 @@ public class IssueService : IIssueService
                     }
                 }
             }
-
-            if (issue.Order > 0)
-            {
-                issue.StatusId = updateIssueStatus.StatusId;
-                issue.Order = updateIssueStatus.NewOrder;
-                _repository.Issue.Update(issue);
-                await _repository.SaveAsync(cancellationToken);
-
-                var newIssue = await _repository.Issue.FindByIdAsync(updateIssueStatus.IssueId, cancellationToken, x => x.Status!);
-
-
-
-                //TODO: Burada yeni statudeki issularin siralamasi duzenlenecek
-                //await UpdateOrder(updateIssueStatus, newIssue, cancellationToken);
-
-                // Farkli status'e gecen issue'nun onceki statusundeki issue'larin Order' larini degistirir
-                var oldStatus = await _repository.Status.FindByIdAsync(oldStatusId, cancellationToken, x => x.Issues);
-
-                if (oldStatus.Issues.Count > 0)
-                {
-                    foreach (var item in oldStatus.Issues)
-                    {
-                        if (item.Order > issue.Order)
-                        {
-                            item.Order--;
-                            _repository.Issue.Update(item);
-                            await _repository.SaveAsync(cancellationToken);
-                        }
-
-                    }
-                }
-
-            }
-
-
-            // Issue'nun yeni Statusundeki Issue'larin Orderini duzenler
-
-            var lastIssue = await _repository.Issue.FindByIdAsync(updateIssueStatus.IssueId, cancellationToken, x => x.Status!);
-
-            if (lastIssue.Status!.Issues.Count > 1)
-            {
-                foreach (var item in lastIssue.Status!.Issues)
-                {
-                    if (item.Id == lastIssue.Id)
-                    {
-                        continue;
-                    }
-
-
-                    if (lastIssue.Order == item.Order || lastIssue.Order < item.Order)
-                    {
-                        item.Order++;
-                        _repository.Issue.Update(item);
-                        await _repository.SaveAsync(cancellationToken);
-                    }
-
-                }
-            }
-
-
 
         }
         else // Ayni status icerisinde order degisikligi oldugunda
