@@ -16,7 +16,19 @@
 </div>
 <hr />
 
+<div class="row d-flex">
+    <span class="text-dark mx-2">
+        <span class="text-primary m-4">Task <i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i></span>
+        <span class="text-danger m-4">Bug <i class="fa-solid fa-sm fa-bug text-danger mx-1"></i></span>
+        <span class="text-success m-4">Story <i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i></span>
 
+        <span class="text-danger m-4">Highest - High <i class="fa-solid fa-sm fa-arrow-up text-danger"></i></span>
+        <span class="text-success m-4">Lowest - Low <i class="fa-solid fa-sm fa-arrow-up text-success"></i></span>
+        <span class="text-warning m-4">Medium <i class="fa-solid fa-sm fa-arrow-up text-warning"></i></span>
+
+    </span>
+
+</div>
 
 <div class="row d-flex mt-5 text-center" style="height: 600px;">
     @foreach (var status in Model)
@@ -25,7 +37,7 @@
             @status.Name.Replace("i", "I").ToUpper()
             @foreach (var issue in status.Issues)
             {
-                <div class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0;" id="@issue.Id">
+                <a href="#" class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
                     <div class="card-body">
                         <span class="card-title">@issue.Summary</span>
                     </div>
@@ -61,7 +73,7 @@
 
 
                     </div>
-                </div>
+                </a>
             }
         </div>
     }
