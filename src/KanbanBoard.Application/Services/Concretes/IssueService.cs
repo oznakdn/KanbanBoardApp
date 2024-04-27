@@ -31,6 +31,8 @@ public class IssueService : IIssueService
         await _repository.SaveAsync(cancellationToken);
     }
 
+
+
     public async Task<string> UpdateIssueStatusAndOrderAsync(UpdateIssueStatusDto updateIssueStatus, CancellationToken cancellationToken = default)
     {
 
@@ -69,7 +71,7 @@ public class IssueService : IIssueService
             {
                 foreach (var item in oldStatus.Issues)
                 {
-                    if(item.Order > updateIssueStatus.OldOrder)
+                    if (item.Order > updateIssueStatus.OldOrder)
                     {
                         item.Order--;
                         _repository.Issue.Update(item);
@@ -158,4 +160,22 @@ public class IssueService : IIssueService
             }
         }
     }
+
+    public async Task<GetIssueDto> GetIssueByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+
+        var issue = await _repository.Issue.FindByIdAsync(id, cancellationToken);
+
+        return new GetIssueDto
+        {
+            Id = issue.Id,
+            Summary = issue.Summary,
+            Description = issue.Description,
+            IssueType = issue.IssueType,
+            Priority = issue.Priority,
+            Order = issue.Order,
+            StatusId = issue.StatusId
+        };
+    }
+
 }
