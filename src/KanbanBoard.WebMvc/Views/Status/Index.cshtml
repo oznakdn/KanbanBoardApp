@@ -37,7 +37,7 @@
             @status.Name.Replace("i", "I").ToUpper()
             @foreach (var issue in status.Issues)
             {
-                <a href="#" class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
+                <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id"  class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
                     <div class="card-body">
                         <span class="card-title">@issue.Summary</span>
                     </div>
