@@ -1,6 +1,15 @@
 ﻿@model List<KanbanBoard.Application.Dtos.StatusDtos.GetStatusDto>
 
 
+    <style>
+        .portlet-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            height: 50px;
+        }
+
+    </style>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 <div class="row mt-3">
@@ -17,7 +26,7 @@
             @status.Name
             @foreach (var issue in status.Issues)
             {
-                <div class="card mt-2" id="@issue.Id">
+                <div class="card mt-2 portlet" id="@issue.Id">
                     <div class="card-body">
                         <h5 class="card-title">@issue.Summary</h5>
                         <p class="card-text">@issue.Description</p>
@@ -38,9 +47,16 @@
          $(document).ready(() => {
 
              let oldOrder;
+
+
             $(".sortable").sortable({
                 connectWith: ".connectedSortable",
-                dropOnEmpty: true,
+                opacity: 0.5,
+                scroll: false,
+                //revert: true,
+                //dropOnEmpty: true,
+                cancel: ".portlet-toggle",
+                placeholder: "portlet-placeholder ui-corner-all",
                 start: function (event, ui) {
                     oldOrder = ui.item.index()
                 },
@@ -87,7 +103,19 @@
 
             }).disableSelection();
 
+             $(".portlet")
+                 .addClass(
+                     "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
+                 )
+                 .find(".portlet-header")
+                 .addClass("ui-widget-header ui-corner-all")
+                 .prepend(
+                     "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>"
+                 );
+
          });
+
+
 
         function getToken() {
             let token = '@Html.AntiForgeryToken()';
