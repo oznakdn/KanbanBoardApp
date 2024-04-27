@@ -33,10 +33,12 @@ public class IssueService : IIssueService
 
     public async Task<string> UpdateIssueStatusAndOrderAsync(UpdateIssueStatusDto updateIssueStatus, CancellationToken cancellationToken = default)
     {
-        // Second Issue
+        // Issue yu bul
         var issue = await _repository.Issue.FindByIdAsync(updateIssueStatus.IssueId, cancellationToken, x => x.Status!);
 
-  
+
+
+
         // Farkli status icerisinde order degisikligi oldugunda
         if (issue.StatusId != updateIssueStatus.StatusId)
         {
@@ -73,27 +75,71 @@ public class IssueService : IIssueService
         }
         else // Ayni status icerisinde order degisikligi oldugunda
         {
-            //issue.Order = updateIssueStatus.NewOrder;
 
             var status = await _repository.Status.FindByIdAsync(issue.StatusId, cancellationToken, x => x.Issues);
 
-            foreach (var item in status.Issues)
+            int a = updateIssueStatus.OldOrder - updateIssueStatus.NewOrder;
+
+            // Yukaridan asagiya yada asagidan yukariya kendi aralarinda drop etmek
+
+            if (a == 1 || a == -1)
             {
-
-                if (item.Order == updateIssueStatus.NewOrder)
+                foreach (var item in status.Issues)
                 {
-                    item.Order = issue.Order;
-                    _repository.Issue.Update(item);
-                   var res=  await _repository.SaveAsync(cancellationToken);
+                    if (item.Order == updateIssueStatus.NewOrder)
+                    {
+                        issue.Order = updateIssueStatus.NewOrder;
+                        _repository.Issue.Update(issue);
+                        await _repository.SaveAsync();
 
-                    issue.Order = updateIssueStatus.NewOrder;
-                    _repository.Issue.Update(issue);
 
-                    var result = await _repository.SaveAsync(cancellationToken);
+                        item.Order = updateIssueStatus.OldOrder;
+                        _repository.Issue.Update(item);
+                        await _repository.SaveAsync();
+                    }
                 }
-
             }
 
+            // Asagidan yukariya dogru arada issue atlayarak drop etmek
+
+            if (a > 1)
+            {
+                issue.Order = updateIssueStatus.NewOrder;
+                _repository.Issue.Update(issue);
+                await _repository.SaveAsync(cancellationToken);
+
+                foreach (var item in status.Issues)
+                {
+                    if (item.Id == issue.Id)
+                    {
+                        continue;
+                    }
+
+                    item.Order++;
+                    _repository.Issue.Update(item);
+                    await _repository.SaveAsync();
+                }
+            }
+
+            // Yukardan asagiya dogru arada issue atlayarak drop etmek
+            if (a < -1)
+            {
+                issue.Order = updateIssueStatus.NewOrder;
+                _repository.Issue.Update(issue);
+                await _repository.SaveAsync(cancellationToken);
+
+                foreach (var item in status.Issues)
+                {
+                    if (item.Id == issue.Id)
+                    {
+                        continue;
+                    }
+
+                    item.Order--;
+                    _repository.Issue.Update(item);
+                    await _repository.SaveAsync();
+                }
+            }
 
         }
 

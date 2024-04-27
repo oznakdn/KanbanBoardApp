@@ -13,18 +13,18 @@
 <div class="row d-flex mt-5 text-center" style="height: 600px;">
     @foreach (var status in Model)
     {
-        <ul class="col connectedSortable sortable" id="@status.Id">
+        <div class="col connectedSortable sortable" id="@status.Id">
             @status.Name
             @foreach (var issue in status.Issues)
             {
-                <li class="card mt-2" id="@issue.Id">
+                <div class="card mt-2" id="@issue.Id">
                     <div class="card-body">
                         <h5 class="card-title">@issue.Summary</h5>
                         <p class="card-text">@issue.Description</p>
                     </div>
-                </li>
+                </div>
             }
-        </ul>
+        </div>
     }
 </div>
 
@@ -37,9 +37,13 @@
 
          $(document).ready(() => {
 
+             let oldOrder;
             $(".sortable").sortable({
                 connectWith: ".connectedSortable",
                 dropOnEmpty: true,
+                start: function (event, ui) {
+                    oldOrder = ui.item.index()
+                },
                 stop: function (event, ui) {
 
                     var issueId = ui.item.attr("id");
@@ -48,14 +52,19 @@
                     var newStatusId = ui.item.parent().attr("id");
                     console.log("status: " + newStatusId);
 
+                    console.log("Old Order: " + oldOrder);
+
+
                     var newOrder = ui.item.index();
-                    console.log("Order:" + newOrder);
+                    console.log("New Order:" + newOrder);
+
 
                     // Görev veritabanında güncellenir (Ajax post ile)
 
                     let obj = {
                         issueId: issueId,
                         statusId: newStatusId,
+                        oldOrder: oldOrder,
                         newOrder: newOrder
                     };
 
