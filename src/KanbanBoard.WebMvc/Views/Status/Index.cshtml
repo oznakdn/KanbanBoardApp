@@ -1,14 +1,13 @@
 ﻿@model List<KanbanBoard.Application.Dtos.StatusDtos.GetStatusDto>
 
 
-    <style>
-        .portlet-placeholder {
-            border: 1px dotted black;
-            margin: 0 1em 1em 0;
-            height: 50px;
-        }
-
-    </style>
+<style>
+    .portlet-placeholder {
+        border: 1px dotted black;
+        margin: 0 1em 1em 0;
+        height: 50px;
+    }
+</style>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
@@ -22,14 +21,45 @@
 <div class="row d-flex mt-5 text-center" style="height: 600px;">
     @foreach (var status in Model)
     {
-        <div class="col connectedSortable sortable" id="@status.Id">
-            @status.Name
+        <div class="col connectedSortable sortable card text-primary" style="background-color: #F7F7F7; font-size:medium;" id="@status.Id">
+            @status.Name.Replace("i", "I").ToUpper()
             @foreach (var issue in status.Issues)
             {
-                <div class="card mt-2 portlet" id="@issue.Id">
+                <div class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0;" id="@issue.Id">
                     <div class="card-body">
-                        <h5 class="card-title">@issue.Summary</h5>
-                        <p class="card-text">@issue.Description</p>
+                        <span class="card-title">@issue.Summary</span>
+                    </div>
+                    <div class="text-start p-2">
+                        @if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Task)
+                        {
+                            <i class="fa-solid fa-sm fa-list-check text-primary"></i>
+                        }
+                        else if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Bug)
+                        {
+                            <i class="fa-solid fa-sm fa-bug text-danger"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-sm fa-bookmark text-success"></i>
+                        }
+
+                        @if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Highest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.High)
+                        {
+                            <i class="fa-solid fa-sm fa-arrow-up text-danger"></i>
+                        }
+                        else if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Lowest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.Low)
+                        {
+                            <i class="fa-solid fa-sm fa-arrow-up text-success"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-sm fa-arrow-up text-warning"></i>
+                        }
+
+                    </div>
+                    <div class="text-end">
+
+
                     </div>
                 </div>
             }
