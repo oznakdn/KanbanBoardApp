@@ -1,6 +1,7 @@
 ﻿using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Dtos.StatusDtos;
 using KanbanBoard.Application.Services.Interface;
+using KanbanBoard.Core.Models;
 using KanbanBoard.Infrastructure.Repositories.Manager;
 
 namespace KanbanBoard.Application.Services.Concretes;
@@ -12,6 +13,18 @@ public class StatusService : IStatusService
     public StatusService(IRepositoryManager repository)
     {
         _repository = repository;
+    }
+
+    public async Task CreateStatusAsync(CreateStatusDto createStatus, CancellationToken cancellationToken = default)
+    {
+        var status = new Status
+        {
+            BoardId = createStatus.BoardId,
+            Name = createStatus.Name
+        };
+
+        _repository.Status.Insers(status);
+        await _repository.SaveAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<GetStatusDto>> GetStatusByBoardIdAsync(string boardId, CancellationToken cancellationToken = default)
