@@ -43,9 +43,9 @@ public class IssueController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<JsonResult> Update(UpdateIssueDto updateIssue)
+    public async Task<IActionResult> Update(UpdateIssueDto updateIssue)
     {
         string boardId = await _manager.Issue.UpdateIssueAsync(updateIssue);
-        return Json(boardId);
+        return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = boardId }) });
     }
 }

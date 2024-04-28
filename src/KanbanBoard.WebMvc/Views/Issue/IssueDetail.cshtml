@@ -105,7 +105,6 @@
 
         $(function () {
 
-            let boardId = "";
             $("#dialog").dialog({
                 height: 600,
                 width: 900,
@@ -134,7 +133,6 @@
                         }
                     }
                 ]
-
             });
 
         });
@@ -160,23 +158,13 @@
                 success: function (res) {
                     boardId = res;
                     console.log(boardId)
-                    getIssues(boardId);
+                    window.location.href = res.redirectToUrl
                 }
             });
 
             $("#dialog").dialog("close");
         }
 
-
-        function getIssues(id) {
-
-            $.ajax({
-
-                url: "/Status/Index/" + id,
-                type: "GET",
-                dataType:"json"
-            });
-        }
 
         function getToken() {
              let token = '@Html.AntiForgeryToken()';
