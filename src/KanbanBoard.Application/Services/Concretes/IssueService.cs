@@ -1,5 +1,6 @@
 ﻿using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Services.Interface;
+using KanbanBoard.Core.Enums;
 using KanbanBoard.Core.Models;
 using KanbanBoard.Infrastructure.Repositories.Manager;
 
@@ -31,6 +32,21 @@ public class IssueService : IIssueService
         await _repository.SaveAsync(cancellationToken);
     }
 
+    public async Task<string> UpdateIssueAsync(UpdateIssueDto updateIssue, CancellationToken cancellationToken = default)
+    {
+        var issue = await _repository.Issue.FindByIdAsync(updateIssue.Id,cancellationToken, x=>x.Status!);
+
+        issue.StatusId = updateIssue.StatusId;
+        issue.Summary = updateIssue.Summary;
+        issue.Description = updateIssue.Description;
+        issue.Priority = (PriorityType)updateIssue.Priority;
+        issue.IssueType = (IssueType)updateIssue.IssueType;
+
+        _repository.Issue.Update(issue);
+        await _repository.SaveAsync(cancellationToken);
+
+        return issue.Status!.BoardId;
+    }
 
 
     public async Task<string> UpdateIssueStatusAndOrderAsync(UpdateIssueStatusDto updateIssueStatus, CancellationToken cancellationToken = default)
@@ -178,4 +194,5 @@ public class IssueService : IIssueService
         };
     }
 
+    
 }
