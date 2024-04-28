@@ -36,4 +36,15 @@ public class StatusService : IStatusService
         }).ToList();
     }
 
+    public async Task<GetStatusDto> GetStatusByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var status = await _repository.Status.FindByIdAsync(id, cancellationToken, x => x.Board!);
+
+        return new GetStatusDto
+        {
+            Id = status.Id,
+            Name = status.Name,
+            BoardId = status.BoardId
+        };
+    }
 }

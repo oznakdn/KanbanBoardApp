@@ -1,6 +1,4 @@
-﻿using KanbanBoard.Core.Enums;
-
-namespace KanbanBoard.Application.Dtos.IssueDtos;
+﻿namespace KanbanBoard.Application.Dtos.IssueDtos;
 
 public class UpdateIssueDto
 {
@@ -10,4 +8,5 @@ public class UpdateIssueDto
     public string? Description { get; set; }
     public int Priority { get; set; }
     public int IssueType { get; set; }
+    public string BoardId { get; set; }
 }
