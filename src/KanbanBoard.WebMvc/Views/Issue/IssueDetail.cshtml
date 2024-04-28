@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
 <div id="dialog" title="Issue Detail">
-    <form  method="post">
+    <form method="post">
         <div class="row d-flex mx-1 justify-content-between mt-3">
             <div class="col card">
                 <div class="card-body">
@@ -21,14 +21,38 @@
             <div class="col card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="form-label">Priority</label>
+                        @if (Model.Priority == KanbanBoard.Core.Enums.PriorityType.Lowest || Model.Priority == KanbanBoard.Core.Enums.PriorityType.Low)
+                        {
+
+                            <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-success"></i> Priority</label>
+                        }
+                        else if (Model.Priority == KanbanBoard.Core.Enums.PriorityType.Highest || Model.Priority == KanbanBoard.Core.Enums.PriorityType.High)
+                        {
+                            <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-danger"></i> Priority</label>
+                        }
+                        else
+                        {
+                            <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-warning"></i> Priority</label>
+                        }
                         <select asp-for="Priority" asp-items="@Html.GetEnumSelectList<KanbanBoard.Core.Enums.PriorityType>()" class="form-select form-select-sm">
                         </select>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="form-label">Issue Type</label>
+                        @if (Model.IssueType == KanbanBoard.Core.Enums.IssueType.Bug)
+                        {
+
+                            <label class="form-label"><i class="fa-solid fa-sm fa-bug text-danger mx-1"></i> Issue Type</label>
+                        }
+                        else if (Model.IssueType == KanbanBoard.Core.Enums.IssueType.Story)
+                        {
+                            <label class="form-label"><i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i> Issue Type</label>
+                        }
+                        else
+                        {
+                            <label class="form-label"><i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i> Issue Type</label>
+                        }
                         <select asp-for="IssueType" asp-items="@Html.GetEnumSelectList<KanbanBoard.Core.Enums.IssueType>()" class="form-select form-select-sm"></select>
                     </div>
                 </div>
@@ -83,24 +107,10 @@
                     duration: 1000
                 },
                 buttons: [
-
                     {
                         text: "Save",
                         class: "btn btn-success",
-                        click: function () {
-                            // Burada update (post) ajax metodu calisacak
-                            let form = dialog.find("form").on("submit", function (event) {
-                                event.preventDefault();
-
-                                $.ajax({
-                                    url: "/Issue/Update",
-                                    type: "POST",
-                                    dataType:"json"
-
-                                });
-
-                            });
-                        }
+                        click: updateIssue
                     },
                     {
                         text: "Close",
@@ -108,13 +118,27 @@
                         click: function () {
                             $(this).dialog("close");
 
-                            // Burada geri Status/Index sayfasina gidilir
                         }
                     }
                 ]
 
             });
+
+            //let form = dialog.find("form").on("submit", function (event) {
+            //    event.preventDefault();
+            //    updateIssue();
+            //});
         });
+
+        function updateIssue() {
+            $ajax({
+                url: "/Issue/Update",
+                type: "POST",
+                dataType: "json"
+
+
+            });
+        }
 
     </script>
 }
