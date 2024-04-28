@@ -1,5 +1,6 @@
 ﻿using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Services.Manager;
+using KanbanBoard.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanBoard.WebMvc.Controllers;
@@ -26,15 +27,14 @@ public class IssueController : Controller
     {
         var issue = await _manager.Issue.GetIssueByIdAsync(id);
 
-        var issueDto = new GetIssueDto
+        var issueDto = new UpdateIssueDto
         {
             Id = issue.Id,
             StatusId = issue.StatusId,
             Summary = issue.Summary,
             Description = issue.Description,
-            IssueType = issue.IssueType,
-            Priority = issue.Priority,
-            Order = issue.Order
+            IssueType = Convert.ToInt16(issue.IssueType),
+            Priority =Convert.ToInt16(issue.Priority)
         };
 
         return View(issueDto);
@@ -43,8 +43,9 @@ public class IssueController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Update()
+    public async Task<JsonResult> Update(UpdateIssueDto updateIssue)
     {
-        return View();
+        string boardId = await _manager.Issue.UpdateIssueAsync(updateIssue);
+        return Json(boardId);
     }
 }

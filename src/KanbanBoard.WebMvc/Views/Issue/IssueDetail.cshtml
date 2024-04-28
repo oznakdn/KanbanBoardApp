@@ -1,32 +1,34 @@
-﻿@model KanbanBoard.Application.Dtos.IssueDtos.GetIssueDto
+﻿@model KanbanBoard.Application.Dtos.IssueDtos.UpdateIssueDto
 
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
 <div id="dialog" title="Issue Detail">
     <form method="post">
+        <input type="hidden" id="txtId" value="@Model.Id" asp-for="Id" />
+        <input type="hidden" id="txtStatusId" value="@Model.StatusId" asp-for="@Model.StatusId" />
         <div class="row d-flex mx-1 justify-content-between mt-3">
             <div class="col card">
                 <div class="card-body">
                     <div class="form-group">
                         <label class="form-label">Summary</label>
-                        <input type="text" asp-for="Summary" class="form-control" />
+                        <input type="text" id="txtSummary" value="@Model.Summary" asp-for="Summary" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Description</label>
-                        <textarea class="form-control form-control-sm" asp-for="Description" rows="6"></textarea>
+                        <textarea id="txtDescription" class="form-control form-control-sm" asp-for="Description" rows="6"></textarea>
                     </div>
                 </div>
             </div>
             <div class="col card">
                 <div class="card-body">
                     <div class="form-group">
-                        @if (Model.Priority == KanbanBoard.Core.Enums.PriorityType.Lowest || Model.Priority == KanbanBoard.Core.Enums.PriorityType.Low)
+                        @if (Model.Priority == 3 || Model.Priority == 4)
                         {
 
                             <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-success"></i> Priority</label>
                         }
-                        else if (Model.Priority == KanbanBoard.Core.Enums.PriorityType.Highest || Model.Priority == KanbanBoard.Core.Enums.PriorityType.High)
+                        else if (Model.Priority == 0 || Model.Priority == 1)
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-danger"></i> Priority</label>
                         }
@@ -34,18 +36,23 @@
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-warning"></i> Priority</label>
                         }
-                        <select asp-for="Priority" asp-items="@Html.GetEnumSelectList<KanbanBoard.Core.Enums.PriorityType>()" class="form-select form-select-sm">
-                        </select>
+                    <select asp-for="Priority" id="txtPriority" class="form-select form-select-sm">
+                        <option value="0">Highest</option>
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Lowest</option>
+                        <option value="4">Low</option>
+                    </select>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        @if (Model.IssueType == KanbanBoard.Core.Enums.IssueType.Bug)
+                        @if (Model.IssueType == 2)
                         {
 
                             <label class="form-label"><i class="fa-solid fa-sm fa-bug text-danger mx-1"></i> Issue Type</label>
                         }
-                        else if (Model.IssueType == KanbanBoard.Core.Enums.IssueType.Story)
+                        else if (Model.IssueType == 0)
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i> Issue Type</label>
                         }
@@ -53,7 +60,11 @@
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i> Issue Type</label>
                         }
-                        <select asp-for="IssueType" asp-items="@Html.GetEnumSelectList<KanbanBoard.Core.Enums.IssueType>()" class="form-select form-select-sm"></select>
+                    <select asp-for="IssueType" id="txtIssueType" class="form-select form-select-sm">
+                        <option value="0">Story</option>
+                        <option value="1">Task</option>
+                        <option value="2">Bug</option>
+                    </select>
                     </div>
                 </div>
                 <div class="card-body">
@@ -93,6 +104,8 @@
     <script>
 
         $(function () {
+
+            let boardId = "";
             $("#dialog").dialog({
                 height: 600,
                 width: 900,
@@ -124,21 +137,54 @@
 
             });
 
-            //let form = dialog.find("form").on("submit", function (event) {
-            //    event.preventDefault();
-            //    updateIssue();
-            //});
         });
 
         function updateIssue() {
-            $ajax({
+            let obj = {
+                id: $("#txtId").val(),
+                statusId: $("#txtStatusId").val(),
+                summary: $("#txtSummary").val(),
+                description: $("textarea#txtDescription").val(),
+                priority: $("#txtPriority option:selected").val(),
+                issueType: $("#txtIssueType option:selected").val()
+            }
+
+            $.ajax({
                 url: "/Issue/Update",
                 type: "POST",
-                dataType: "json"
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: getToken(),
+                    updateIssue:obj
+                },
+                success: function (res) {
+                    boardId = res;
+                    console.log(boardId)
+                    getIssues(boardId);
+                }
+            });
+
+            $("#dialog").dialog("close");
+        }
 
 
+        function getIssues(id) {
+
+            $.ajax({
+
+                url: "/Status/Index/" + id,
+                type: "GET",
+                dataType:"json"
             });
         }
+
+        function getToken() {
+             let token = '@Html.AntiForgeryToken()';
+             token = $(token).val();
+             return token;
+            }
+
+
 
     </script>
 }
