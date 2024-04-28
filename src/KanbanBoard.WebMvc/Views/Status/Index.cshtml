@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
+
 <div class="row mt-3">
     <div class="display-6">Board / @ViewData["boardTitle"]</div>
 </div>
@@ -37,7 +38,7 @@
             @status.Name.Replace("i", "I").ToUpper()
             @foreach (var issue in status.Issues)
             {
-                <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id"  class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
+                <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="card mt-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
                     <div class="card-body">
                         <span class="card-title">@issue.Summary</span>
                     </div>
@@ -69,16 +70,28 @@
                         }
 
                     </div>
-                    <div class="text-end">
-
-
-                    </div>
                 </a>
             }
         </div>
     }
+    <div class="col-2 text-start">
+        <button class="btn btn-primary" id="create-status"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
 </div>
 
+<!--Create status form starts-->
+<div id="status-update-dialog" class="card" title="Create Status">
+    <form method="post">
+        <input type="hidden" id="boardId"  value="@ViewData["boardId"]" />
+        <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" id="txtName"/>
+        </div>
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </form>
+</div>
+<!--Create status form ends-->
 
 @section Scripts{
 
@@ -86,10 +99,10 @@
 
     <script>
 
-         $(document).ready(() => {
+        $(document).ready(() => {
 
+            // Sortable starts
              let oldOrder;
-
 
             $(".sortable").sortable({
                 connectWith: ".connectedSortable",
@@ -153,7 +166,44 @@
                  .addClass("ui-widget-header ui-corner-all")
                  .prepend(
                      "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>"
-                 );
+            );
+
+            // Sortable ends
+
+            // Create Status Modal
+
+            $("#status-update-dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                resizable: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                buttons: [
+                    {
+                        text: "Save",
+                        class: "btn btn-success",
+                        click: createStatus
+                    },
+                    {
+                        text: "Close",
+                        class: "btn btn-warning",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+            });
+
+
+            $("#create-status").button().on("click", function () {
+                $("#status-update-dialog").dialog("open");
+            });
 
          });
 
@@ -163,6 +213,30 @@
             let token = '@Html.AntiForgeryToken()';
             token = $(token).val();
             return token;
+        }
+
+        function createStatus() {
+
+            let obj = {
+                boardId: $("#boardId").val(),
+                name: $("#txtName").val()
+            }
+
+            $.ajax({
+
+                url: "/Status/Create",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: getToken(),
+                    createStatus: obj
+                },
+                success: function (res) {
+                    window.location.href = res.redirectToUrl
+                }
+            });
+
+
         }
 
 
