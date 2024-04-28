@@ -26,6 +26,7 @@ public class IssueController : Controller
     public async Task<IActionResult>IssueDetail(string id)
     {
         var issue = await _manager.Issue.GetIssueByIdAsync(id);
+        var status = await _manager.Status.GetStatusByIdAsync(issue.StatusId);
 
         var issueDto = new UpdateIssueDto
         {
@@ -34,7 +35,8 @@ public class IssueController : Controller
             Summary = issue.Summary,
             Description = issue.Description,
             IssueType = Convert.ToInt16(issue.IssueType),
-            Priority =Convert.ToInt16(issue.Priority)
+            Priority =Convert.ToInt16(issue.Priority),
+            BoardId = status.BoardId
         };
 
         return View(issueDto);

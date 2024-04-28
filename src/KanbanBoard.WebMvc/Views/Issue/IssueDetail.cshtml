@@ -5,6 +5,7 @@
 
 <div id="dialog" title="Issue Detail">
     <form method="post">
+        <input type="hidden" asp-for="BoardId" id="boardId" value="@Model.BoardId" />
         <input type="hidden" id="txtId" value="@Model.Id" asp-for="Id" />
         <input type="hidden" id="txtStatusId" value="@Model.StatusId" asp-for="@Model.StatusId" />
         <div class="row d-flex mx-1 justify-content-between mt-3">
@@ -105,6 +106,8 @@
 
         $(function () {
 
+            let boardId = $("#boardId").val();
+
             $("#dialog").dialog({
                 height: 600,
                 width: 900,
@@ -129,7 +132,7 @@
                         class: "btn btn-warning",
                         click: function () {
                             $(this).dialog("close");
-
+                            window.location.href = `http://localhost:5191/Status/Index/${boardId}`
                         }
                     }
                 ]
