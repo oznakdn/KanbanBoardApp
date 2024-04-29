@@ -22,10 +22,20 @@ public class StatusController : Controller
         return View(status);
     }
 
-    public async Task<IActionResult>Create(CreateStatusDto createStatus)
+    public async Task<IActionResult> Create(CreateStatusDto createStatus)
     {
         await _manager.Status.CreateStatusAsync(createStatus);
         return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = createStatus.BoardId }) });
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(string id)
+    {
+        string boardId = await _manager.Status.DeleteStatusAsync(id);
+        //return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = boardId }) });
+        return RedirectToAction(nameof(Index), "Status", new { id = boardId });
+    }
+
+
 
 }

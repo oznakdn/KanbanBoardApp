@@ -35,8 +35,17 @@
 <div class="row d-flex mt-5 text-center">
     @foreach (var status in Model)
     {
-        <div class="col" style="height: auto;">
-           <div class="text-center text-white card my-2 bg-secondary">@status.Name.Replace("i", "I").ToUpper()</div> 
+        <div class="col d-inline" style="height: auto;">
+
+            <div class="text-center text-white card my-2 bg-secondary">
+                <!--Status delete form-->
+                <form method="post" asp-action="Delete" asp-controller="Status">
+                    <input type="hidden"  name="id" value="@status.Id" />
+                    <button type="submit" @*onclick="deleteStatus('@status.Id')"*@ class="btn"><i class="fa-solid fa-trash text-end p-1"></i></button>
+                </form>
+                @status.Name.Replace("i", "I").ToUpper()
+            </div>
+
             <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:100px;" id="@status.Id">
                 @foreach (var issue in status.Issues)
                 {
@@ -78,7 +87,7 @@
         </div>
     }
     <div class="col text-start">
-        <button class="btn btn-primary btn-sm mt-1" id="create-status"><i class="fa-solid fa-plus"></i></button>
+        <button class="btn btn-primary btn-sm mt-2" id="create-status"><i class="fa-solid fa-plus"></i></button>
     </div>
 
 </div>
@@ -86,10 +95,10 @@
 <!--Create status form starts-->
 <div id="status-update-dialog" class="card" title="Create Status">
     <form method="post">
-        <input type="hidden" id="boardId"  value="@ViewData["boardId"]" />
+        <input type="hidden" id="boardId" value="@ViewData["boardId"]" />
         <div class="form-group">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" id="txtName"/>
+            <input type="text" class="form-control" id="txtName" />
         </div>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </form>
@@ -111,29 +120,18 @@
                 connectWith: ".connectedSortable",
                 opacity: 0.5,
                 scroll: false,
-                //revert: true,
-                //dropOnEmpty: true,
-                cancel: ".portlet-toggle",
-                placeholder: "portlet-placeholder ui-corner-all",
+                revert: true,
+                placeholder: "portlet-placeholder",
                 start: function (event, ui) {
                     oldOrder = ui.item.index()
                 },
                 stop: function (event, ui) {
 
                     var issueId = ui.item.attr("id");
-                    console.log("issue: " + issueId);
-
                     var newStatusId = ui.item.parent().attr("id");
-                    console.log("status: " + newStatusId);
-
-                    console.log("Old Order: " + oldOrder);
-
-
                     var newOrder = ui.item.index();
-                    console.log("New Order:" + newOrder);
+                 
 
-
-                    // Görev veritabanında güncellenir (Ajax post ile)
 
                     let obj = {
                         issueId: issueId,
@@ -161,30 +159,18 @@
 
             }).disableSelection();
 
-             $(".portlet")
-                 .addClass(
-                     "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
-                 )
-                 .find(".portlet-header")
-                 .addClass("ui-widget-header ui-corner-all")
-                 .prepend(
-                     "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>"
-            );
-
+             
             // Sortable ends
 
-            // Create Status Modal
 
+
+            // Create Status Modal
             $("#status-update-dialog").dialog({
                 autoOpen: false,
                 modal: true,
                 resizable: false,
                 show: {
                     effect: "blind",
-                    duration: 1000
-                },
-                hide: {
-                    effect: "explode",
                     duration: 1000
                 },
                 buttons: [
@@ -242,7 +228,7 @@
 
         }
 
-
+        
 
     </script>
 }
