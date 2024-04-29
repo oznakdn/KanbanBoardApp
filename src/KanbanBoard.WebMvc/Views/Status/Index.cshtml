@@ -28,53 +28,56 @@
         <span class="text-warning m-4">Medium <i class="fa-solid fa-sm fa-arrow-up text-warning"></i></span>
 
     </span>
-
 </div>
 
-<div class="row d-flex mt-5 text-center" style="height: auto;">
+<hr />
+
+<div class="row d-flex mt-5 text-center">
     @foreach (var status in Model)
     {
-        <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium;" id="@status.Id">
-            @status.Name.Replace("i", "I").ToUpper()
-            @foreach (var issue in status.Issues)
-            {
-                <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="card mt-2 mb-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
-                    <div class="card-body">
-                        <span class="card-title">@issue.Summary</span>
-                    </div>
-                    <div class="text-start p-2">
-                        @if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Task)
-                        {
-                            <i class="fa-solid fa-sm fa-list-check text-primary"></i>
-                        }
-                        else if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Bug)
-                        {
-                            <i class="fa-solid fa-sm fa-bug text-danger"></i>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-sm fa-bookmark text-success"></i>
-                        }
+        <div class="col" style="height: auto;">
+           <div class="text-center text-white card my-2 bg-secondary">@status.Name.Replace("i", "I").ToUpper()</div> 
+            <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:100px;" id="@status.Id">
+                @foreach (var issue in status.Issues)
+                {
+                    <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="card mt-2 mb-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
+                        <div class="card-body">
+                            <span class="card-title">@issue.Summary</span>
+                        </div>
+                        <div class="text-start p-2">
+                            @if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Task)
+                            {
+                                <i class="fa-solid fa-sm fa-list-check text-primary"></i>
+                            }
+                            else if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Bug)
+                            {
+                                <i class="fa-solid fa-sm fa-bug text-danger"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-sm fa-bookmark text-success"></i>
+                            }
 
-                        @if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Highest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.High)
-                        {
-                            <i class="fa-solid fa-sm fa-arrow-up text-danger"></i>
-                        }
-                        else if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Lowest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.Low)
-                        {
-                            <i class="fa-solid fa-sm fa-arrow-up text-success"></i>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-sm fa-arrow-up text-warning"></i>
-                        }
+                            @if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Highest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.High)
+                            {
+                                <i class="fa-solid fa-sm fa-arrow-up text-danger"></i>
+                            }
+                            else if (issue.Priority == KanbanBoard.Core.Enums.PriorityType.Lowest || issue.Priority == KanbanBoard.Core.Enums.PriorityType.Low)
+                            {
+                                <i class="fa-solid fa-sm fa-arrow-up text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-sm fa-arrow-up text-warning"></i>
+                            }
 
-                    </div>
-                </a>
-            }
+                        </div>
+                    </a>
+                }
+            </div>
         </div>
     }
-    <div class="col card">
+    <div class="col text-start">
         <button class="btn btn-primary btn-sm mt-1" id="create-status"><i class="fa-solid fa-plus"></i></button>
     </div>
 
