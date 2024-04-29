@@ -40,11 +40,17 @@
             <div class="text-center text-white card my-2 bg-secondary">
                 <!--Status delete form-->
                 <form method="post" asp-action="Delete" asp-controller="Status">
-                    <input type="hidden"  name="id" value="@status.Id" />
-                    <button type="submit" @*onclick="deleteStatus('@status.Id')"*@ class="btn"><i class="fa-solid fa-trash text-end p-1"></i></button>
+                    <input type="hidden" name="id" value="@status.Id" />
+                    <button type="submit" class="btn"><i class="fa-solid fa-trash text-end p-1"></i></button>
                 </form>
-                @status.Name.Replace("i", "I").ToUpper()
+                <span>@status.Name.Replace("i", "I").ToUpper()</span>
             </div>
+
+            <!--Create issue starts-->
+            <div class="col mt-2">
+                <a class="btn btn-primary btn-block btn-sm my-2" asp-action="Create" asp-controller="Issue" asp-route-statusId="@status.Id"><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <!--Create issue ends-->
 
             <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:100px;" id="@status.Id">
                 @foreach (var issue in status.Issues)
@@ -130,7 +136,7 @@
                     var issueId = ui.item.attr("id");
                     var newStatusId = ui.item.parent().attr("id");
                     var newOrder = ui.item.index();
-                 
+
 
 
                     let obj = {
@@ -159,7 +165,7 @@
 
             }).disableSelection();
 
-             
+
             // Sortable ends
 
 
@@ -228,7 +234,7 @@
 
         }
 
-        
+
 
     </script>
 }
