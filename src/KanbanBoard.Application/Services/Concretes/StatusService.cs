@@ -27,6 +27,15 @@ public class StatusService : IStatusService
         await _repository.SaveAsync(cancellationToken);
     }
 
+    public async Task<string> DeleteStatusAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var status = await _repository.Status.FindByIdAsync(id, cancellationToken);
+        string boardId = status.BoardId;
+        _repository.Status.Delete(status);
+        await _repository.SaveAsync(cancellationToken);
+        return boardId;
+    }
+
     public async Task<IEnumerable<GetStatusDto>> GetStatusByBoardIdAsync(string boardId, CancellationToken cancellationToken = default)
     {
         var statuses = await _repository.Status.FindAllAsync(cancellationToken, filter: x => x.BoardId == boardId, includes: x => x.Issues);
