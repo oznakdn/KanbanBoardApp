@@ -69,4 +69,15 @@ public class StatusService : IStatusService
             BoardId = status.BoardId
         };
     }
+
+    public async Task<string> UpdateStatusAsync(UpdateStatusDto updateStatus, CancellationToken cancellationToken = default)
+    {
+        var status = await _repository.Status.FindByIdAsync(updateStatus.Id, cancellationToken);
+
+        status.Name = updateStatus.Name;
+        _repository.Status.Update(status);
+        await _repository.SaveAsync(cancellationToken);
+
+        return status.BoardId;
+    }
 }
