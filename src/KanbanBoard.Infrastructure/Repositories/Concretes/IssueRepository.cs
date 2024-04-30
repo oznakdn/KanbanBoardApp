@@ -14,7 +14,16 @@ public class IssueRepository : AbstractRepository<Issue>, IIssueRepository
 
     public async Task<int> GetNextOrderAsync(string statusId)
     {
-        var lastOrder = await _dbSet.Where(x => x.StatusId == statusId).MaxAsync(x => x.Order);
-        return lastOrder + 1;
+        var issues = await _dbContext.Issues.Where(x => x.StatusId == statusId).ToListAsync();
+        int lastOrder = 0;
+
+        if (issues.Count > 0)
+        {
+            lastOrder = await _dbSet.Where(x => x.StatusId == statusId).MaxAsync(x => x.Order);
+            return lastOrder + 1;
+        }
+
+        return lastOrder;
+
     }
 }
