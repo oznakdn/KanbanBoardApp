@@ -197,5 +197,13 @@ public class IssueService : IIssueService
         };
     }
 
+    public async Task<string> DeleteIssueAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var issue = await _repository.Issue.FindByIdAsync(id, cancellationToken);
+        var status = await _repository.Status.FindByIdAsync(issue.StatusId, cancellationToken);
 
+        _repository.Issue.Delete(issue);
+        await _repository.SaveAsync(cancellationToken);
+        return status.BoardId;
+    }
 }
