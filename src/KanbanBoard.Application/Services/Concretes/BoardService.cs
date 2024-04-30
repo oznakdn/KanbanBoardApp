@@ -1,5 +1,6 @@
 ﻿using KanbanBoard.Application.Dtos.BoardDtos;
 using KanbanBoard.Application.Services.Interface;
+using KanbanBoard.Core.Models;
 using KanbanBoard.Infrastructure.Repositories.Manager;
 
 namespace KanbanBoard.Application.Services.Concretes;
@@ -10,6 +11,18 @@ public class BoardService : IBoardService
     public BoardService(IRepositoryManager repository)
     {
         _repository = repository;
+    }
+
+    public async Task CreateBoardAsync(CreateBoardDto createBoard, CancellationToken cancellationToken = default)
+    {
+        var board = new Board
+        {
+            Title = createBoard.Title,
+            Description = createBoard.Description
+        };
+
+        _repository.Board.Insers(board);
+        await _repository.SaveAsync(cancellationToken);
     }
 
     public async Task<GetBoardDto> GetBoardByIdAsync(string id, CancellationToken cancellationToken = default)
@@ -25,7 +38,7 @@ public class BoardService : IBoardService
 
     public async Task<IEnumerable<GetBoardDto>> GetBoardsAsync(CancellationToken cancellationToken = default)
     {
-        var boards = await _repository.Board.FindAllAsync(cancellationToken,includes:x=>x.Statuses);
+        var boards = await _repository.Board.FindAllAsync(cancellationToken, includes: x => x.Statuses);
         return boards.Select(x => new GetBoardDto
         {
             Id = x.Id,
