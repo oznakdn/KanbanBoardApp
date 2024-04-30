@@ -1,11 +1,39 @@
 ﻿<div class="row d-flex mt-3">
     <div class="display-6 text-start col">Projects</div>
     <div class="text-end col">
-        <button class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i> New</button>
+        <button class="btn btn-success btn-sm" data-bs-toggle="offcanvas" data-bs-target="#createBoard"><i class="fa-solid fa-plus"></i> New</button>
     </div>
 </div>
 
 <hr />
+
+
+<!--Create project (board) offcanvas starts-->
+
+<div class="offcanvas offcanvas-lg offcanvas-end" data-bs-scroll="true" tabindex="-1" id="createBoard" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Creating Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body mt-4">
+        <form method="post" asp-action="Create" asp-controller="Board">
+          
+            <div class="form-group">
+                <label class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="description" rows="6"></textarea>
+            </div>
+            <div class="form-group mt-3 text-end">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Create project offcanvas ends-->
 
 <div class="row mt-5 d-flex" id="boards">
 
@@ -25,18 +53,18 @@
                     console.log(strData);
                     let html = "";
                     $.each(data, (index, value) => {
-                        html += `<div class='col d-inline-block'> 
-                                      <a  href="/Status/Index/${value.id}" style="text-decoration-line:none;">
-                                        <div class="col-2 text-center text-white">
-                                            <div class="card bg-primary opacity-50">
-                                                 <div class="card-body">
-                                                     <div>${value.title}</div>
-                                                  </div>
-                                                </div>
-                                        </div>
-                                     </a>
-                                 </div>
-                                     `
+                        html += `<div class='col'>
+                                          <a href="/Status/Index/${value.id}" style="text-decoration-line:none;">
+                                            <div class="text-center text-white">
+                                                <div class="card bg-primary opacity-50">
+                                                     <div class="card-body">
+                                                         <div>${value.title}</div>
+                                                      </div>
+                                                    </div>
+                                            </div>
+                                         </a>
+                                     </div>
+                                         `
                     });
 
                     $('#boards').html(html);

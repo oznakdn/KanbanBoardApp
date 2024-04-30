@@ -23,4 +23,18 @@ public class BoardController : Controller
         IEnumerable<GetBoardDto> boards = await _manager.Board.GetBoardsAsync(cancellation);
         return Json(boards);
     }
+
+    [HttpPost]
+    public async Task<IActionResult>Create(string title, string description)
+    {
+        await _manager.Board.CreateBoardAsync(new CreateBoardDto
+        {
+            Title = title,
+            Description = description
+        });
+
+        return RedirectToAction(nameof(Index));
+    }
+
+
 }
