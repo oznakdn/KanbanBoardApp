@@ -16,25 +16,26 @@ public class IssueService : IIssueService
     }
 
 
-    public async Task CreateIssueAsync(CreateIssueDto createIssue, CancellationToken cancellationToken = default)
+    public async Task<string> CreateIssueAsync(CreateIssueDto createIssue, CancellationToken cancellationToken = default)
     {
         var issue = new Issue
         {
             StatusId = createIssue.StatusId,
             Summary = createIssue.Summary,
             Description = createIssue.Description,
-            IssueType = createIssue.IssueType,
-            Priority = createIssue.Priority,
+            IssueType = (IssueType)createIssue.IssueType,
+            Priority = (PriorityType)createIssue.Priority,
             Order = await _repository.Issue.GetNextOrderAsync(createIssue.StatusId)
         };
 
         _repository.Issue.Insers(issue);
         await _repository.SaveAsync(cancellationToken);
+        return issue.Status!.BoardId;
     }
 
     public async Task<string> UpdateIssueAsync(UpdateIssueDto updateIssue, CancellationToken cancellationToken = default)
     {
-        var issue = await _repository.Issue.FindByIdAsync(updateIssue.Id,cancellationToken, x=>x.Status!);
+        var issue = await _repository.Issue.FindByIdAsync(updateIssue.Id, cancellationToken, x => x.Status!);
 
         issue.StatusId = updateIssue.StatusId;
         issue.Summary = updateIssue.Summary;
@@ -194,5 +195,5 @@ public class IssueService : IIssueService
         };
     }
 
-    
+
 }
