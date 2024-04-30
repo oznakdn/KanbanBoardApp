@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KanbanBoard.Application.Dtos.BoardDtos;
+using KanbanBoard.Application.Services.Manager;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanBoard.WebMvc.Controllers;
 
 public class BoardController : Controller
 {
-    public IActionResult Index(string id)
+    private readonly IServiceManager _manager;
+
+    public BoardController(IServiceManager manager)
     {
-        // Board' un Status ve Issue lari gelecek drag and drop alani burasi
+        _manager = manager;
+    }
+
+    public IActionResult Index()
+    {
         return View();
+    }
+
+    public async Task<JsonResult> Boards(CancellationToken cancellation = default)
+    {
+        IEnumerable<GetBoardDto> boards = await _manager.Board.GetBoardsAsync(cancellation);
+        return Json(boards);
     }
 }

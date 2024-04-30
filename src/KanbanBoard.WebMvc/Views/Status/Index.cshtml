@@ -12,8 +12,11 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 
-<div class="row mt-3">
-    <div class="display-6">Board / @ViewData["boardTitle"]</div>
+<div class="row d-flex mt-3">
+    <div class="display-6 text-start col">Board / @ViewData["boardTitle"]</div>
+    <div class="text-end col">
+        <a asp-action="Index" asp-controller="Board" class="btn btn-warning">Projects</a>
+    </div>
 </div>
 <hr />
 

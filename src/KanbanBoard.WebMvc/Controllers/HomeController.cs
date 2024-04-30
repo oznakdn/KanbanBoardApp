@@ -11,12 +11,11 @@ namespace KanbanBoard.WebMvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IServiceManager _manager;
+ 
 
-        public HomeController(ILogger<HomeController> logger, IServiceManager manager)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _manager = manager;
         }
 
         public IActionResult Index()
@@ -24,12 +23,7 @@ namespace KanbanBoard.WebMvc.Controllers
             return View();
         }
 
-        public async Task<JsonResult> Boards(CancellationToken cancellation = default)
-        {
-            IEnumerable<GetBoardDto> boards = await _manager.Board.GetBoardsAsync(cancellation);
-            return Json(boards);
-        }
-
+        
         public IActionResult Privacy()
         {
             return View();
