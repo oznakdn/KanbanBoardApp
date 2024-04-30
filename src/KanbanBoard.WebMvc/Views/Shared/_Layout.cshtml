@@ -11,78 +11,80 @@
 </head>
 <body>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-   
+
 
     <div class="left">
-        <div class="item">
-            <span class="glyphicon glyphicon-th-large"></span>
+        <div class="item mb-5">
+            <span class="glyphicon glyphicon-align-justify" style="margin-left:17px;"></span>
         </div>
-        <div class="item active">
-            <span class="glyphicon glyphicon-th-list"></span>
+
+        <!--Kullanici login oldugunda -->
+        <div class="item">
+            <span class="glyphicon glyphicon-book"></span>
+            About
+        </div>
+
+        <div class="item">
+            <span class="glyphicon glyphicon-briefcase"></span>
             <a asp-action="Index" asp-controller="Board" class="text-white" style="text-decoration-line:none;">Projects</a>
         </div>
         <div class="item">
             <span class="glyphicon glyphicon-log-out"></span>
-            Create Project
+            Log Out
         </div>
-        <div class="item">
-            <span class="glyphicon glyphicon-log-in"></span>
-            Приходные накладные
-        </div>
-        <div class="item">
-            <span class="glyphicon glyphicon-random"></span>
-            Акты переоценки
-        </div>
-        <div class="item">
-            <span class="glyphicon glyphicon-remove"></span>
-            Акты списания
-        </div>
+
+        <!--Kullanici login oldugunda -->
+
     </div>
-    <div class="right">
-        <table class="table">
-            <tr>
-                <td class="title search col-md-9">
-                    <div class="inner-addon right-addon">
-                        <input class="col-md-12" type="search" placeholder="Поиск">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </div>
-                </td>
-                <th valign="middle" colspan="2" class="title text-center">
-                    <span class="glyphicon glyphicon-refresh"></span>
-                </th>
-            </tr>
-            <tr>
-                <td colspan="2" class="type">Statistics</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="date">Project</td>
-            </tr>
-            <tr>
-                <td class="docs">
-                    <p class="ndoc">Story <i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i></p>
-                    <p class="distr">Continue:5 </p>
-                    <p class="storage">Completed:10 </p>
-                </td>
-                <td class="docdate"></td>
-            </tr>
-            <tr>
-                <td class="docs">
-                    <p class="ndoc">Task <i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i></p>
-                    <p class="distr">Continue:2</p>
-                    <p class="storage">Completed:8</p>
-                </td>
-                <td class="docdate"></td>
-            </tr>
-            <tr>
-                <td class="docs">
-                    <p class="ndoc">Bug <i class="fa-solid fa-sm fa-bug text-danger mx-1"></i></p>
-                    <p class="distr">Continue:6</p>
-                    <p class="storage">Completed:10</p>
-                </td>
-                <td class="docdate"></td>
-            </tr>
-        </table>
-    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="right">
+            <table class="table">
+                <tr>
+                    <td class="title search col-md-9">
+                        <div class="inner-addon right-addon">
+                            <input class="col-md-12" type="search" placeholder="Поиск">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </div>
+                    </td>
+                    <th valign="middle" colspan="2" class="title text-center">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2" class="type">Statistics</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="date">Project</td>
+                </tr>
+                <tr>
+                    <td class="docs">
+                        <p class="ndoc">Story <i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i></p>
+                        <p class="distr">Continue:5 </p>
+                        <p class="storage">Completed:10 </p>
+                    </td>
+                    <td class="docdate"></td>
+                </tr>
+                <tr>
+                    <td class="docs">
+                        <p class="ndoc">Task <i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i></p>
+                        <p class="distr">Continue:2</p>
+                        <p class="storage">Completed:8</p>
+                    </td>
+                    <td class="docdate"></td>
+                </tr>
+                <tr>
+                    <td class="docs">
+                        <p class="ndoc">Bug <i class="fa-solid fa-sm fa-bug text-danger mx-1"></i></p>
+                        <p class="distr">Continue:6</p>
+                        <p class="storage">Completed:10</p>
+                    </td>
+                    <td class="docdate"></td>
+                </tr>
+            </table>
+        </div>
+    }
+
     <div class="container-fluid">
         <main role="main">
             @RenderBody()
