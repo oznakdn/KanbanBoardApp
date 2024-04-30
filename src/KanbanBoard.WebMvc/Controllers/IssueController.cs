@@ -77,4 +77,11 @@ public class IssueController : Controller
 
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Delete(string id)
+    {
+        string boardId = await _manager.Issue.DeleteIssueAsync(id);
+        return RedirectToAction("Index", "Status", new { id = boardId });
+    }
+
 }

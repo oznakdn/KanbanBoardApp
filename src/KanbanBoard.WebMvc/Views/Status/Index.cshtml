@@ -132,6 +132,12 @@
                 @foreach (var issue in status.Issues)
                 {
                     <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="card mt-2 mb-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
+                        <div class="card-title text-end">
+                            <form method="post" asp-action="Delete" asp-controller="Issue">
+                                <input type="hidden" name="id" value="@issue.Id" />
+                                <button type="submit" class="btn mt-2"><i class="fa-solid fa-trash text-danger"></i></button>
+                            </form>
+                        </div>
                         <div class="card-body">
                             <span class="card-title">@issue.Summary</span>
                         </div>
