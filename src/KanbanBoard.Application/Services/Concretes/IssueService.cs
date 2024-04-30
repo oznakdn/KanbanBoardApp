@@ -30,7 +30,9 @@ public class IssueService : IIssueService
 
         _repository.Issue.Insers(issue);
         await _repository.SaveAsync(cancellationToken);
-        return issue.Status!.BoardId;
+
+        var status = await _repository.Status.FindByIdAsync(issue.StatusId, cancellationToken);
+        return status.BoardId;
     }
 
     public async Task<string> UpdateIssueAsync(UpdateIssueDto updateIssue, CancellationToken cancellationToken = default)
