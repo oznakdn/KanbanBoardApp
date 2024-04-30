@@ -1,5 +1,6 @@
 ﻿using KanbanBoard.Application.Dtos.StatusDtos;
 using KanbanBoard.Application.Services.Manager;
+using KanbanBoard.WebMvc.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanBoard.WebMvc.Controllers;
@@ -22,10 +23,16 @@ public class StatusController : Controller
         return View(status);
     }
 
-    public async Task<IActionResult> Create(CreateStatusDto createStatus)
+    [HttpPost]
+    public async Task<IActionResult> Create(string boardId, string name)
     {
-        await _manager.Status.CreateStatusAsync(createStatus);
-        return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = createStatus.BoardId }) });
+        await _manager.Status.CreateStatusAsync(new CreateStatusDto
+        {
+            BoardId = boardId,
+            Name = name
+        });
+
+        return RedirectToAction(nameof(Index), "Status", new { id = boardId });
     }
 
     [HttpPost]
@@ -38,6 +45,7 @@ public class StatusController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(string id, string name)
     {
+        
         string boardId = await _manager.Status.UpdateStatusAsync(new UpdateStatusDto
         {
             Id = id,

@@ -1,5 +1,5 @@
 ﻿@model List<KanbanBoard.Application.Dtos.StatusDtos.GetStatusDto>
-
+@using KanbanBoard.WebMvc.Extensions;
 
 <style>
     .portlet-placeholder {
@@ -72,7 +72,7 @@
 
             <div class="text-center text-white card my-2 bg-secondary">
                 <button class="btn btn-secondary text-center" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-@(status.Id)">
-                    <span>@status.Name.Replace("i", "I").ToUpper()</span>
+                    <span>@status.Name.NameReplaceAndUpperCase()</span>
                 </button>
 
             </div>
@@ -86,7 +86,7 @@
 
             <div class="offcanvas offcanvas-lg offcanvas-end" data-bs-scroll="true" tabindex="-1" id="createIssue-@(status.Id)" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Creating @status.Name.ToUpper() Issue</h5>
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Creating @(status.Name.NameReplaceAndUpperCase()) Issue</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
 
@@ -175,23 +175,38 @@
         </div>
     }
     <div class="col text-start">
-        <button class="btn btn-primary btn-sm mt-2" id="create-status"><i class="fa-solid fa-plus"></i></button>
+        <button class="btn btn-primary btn-sm mt-2" id="create-status" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-createStatus"><i class="fa-solid fa-plus"></i></button>
     </div>
 
 </div>
 
-<!--Create status form starts-->
-<div id="status-update-dialog" class="card" title="Create Status">
-    <form method="post">
-        <input type="hidden" id="boardId" value="@ViewData["boardId"]" />
-        <div class="form-group">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" id="txtName" />
+
+<!--Create status offcanvas starts-->
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvas-createStatus" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Creating Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="mt-3">
+            <form method="post" asp-action="Create" asp-controller="Status">
+                <div class="form-group">
+                    <label class="form-label text-start">Status Title</label>
+                    <input type="text" name="name" class="form-control" />
+                </div>
+                <div class="form-group text-end mt-3">
+                    <input type="hidden" name="boardId" class="form-control form-control-sm" value="@ViewData["boardId"]">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                </div>
+            </form>
         </div>
-        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    </form>
+    </div>
 </div>
-<!--Create status form ends-->
+
+<!--Create status offcanvas ends-->
+
 
 @section Scripts{
 
@@ -292,31 +307,7 @@
             return token;
         }
 
-        function createStatus() {
-
-            let obj = {
-                boardId: $("#boardId").val(),
-                name: $("#txtName").val()
-            }
-
-            $.ajax({
-
-                url: "/Status/Create",
-                type: "POST",
-                dataType: "json",
-                data: {
-                    __RequestVerificationToken: getToken(),
-                    createStatus: obj
-                },
-                success: function (res) {
-                    window.location.href = res.redirectToUrl
-                }
-            });
-
-
-        }
-
-
+        
 
     </script>
 }
