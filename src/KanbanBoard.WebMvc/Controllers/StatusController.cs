@@ -32,7 +32,17 @@ public class StatusController : Controller
     public async Task<IActionResult> Delete(string id)
     {
         string boardId = await _manager.Status.DeleteStatusAsync(id);
-        //return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = boardId }) });
+        return RedirectToAction(nameof(Index), "Status", new { id = boardId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(string id, string name)
+    {
+        string boardId = await _manager.Status.UpdateStatusAsync(new UpdateStatusDto
+        {
+            Id = id,
+            Name = name
+        });
         return RedirectToAction(nameof(Index), "Status", new { id = boardId });
     }
 

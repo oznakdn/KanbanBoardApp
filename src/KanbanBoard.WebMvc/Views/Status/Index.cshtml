@@ -29,22 +29,54 @@
 
     </span>
 </div>
-
 <hr />
+
+
+
 
 <div class="row d-flex mt-5 text-center">
     @foreach (var status in Model)
     {
         <div class="col d-inline" style="height: auto;">
 
-            <div class="text-center text-white card my-2 bg-secondary">
-                <!--Status delete form-->
-                <form method="post" asp-action="Delete" asp-controller="Status">
-                    <input type="hidden" name="id" value="@status.Id" />
-                    <button type="submit" class="btn"><i class="fa-solid fa-trash text-end p-1"></i></button>
-                </form>
-                <span>@status.Name.Replace("i", "I").ToUpper()</span>
+            <!--Status detail offcanvas starts-->
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvas-@(status.Id)" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body">
+                    <div class="text-end">
+                        <form method="post" asp-action="Delete" asp-controller="Status">
+                            <div class="form-group">
+                                <input type="hidden" name="id" class="form-control form-control-sm" value="@status.Id">
+                                <button type="submit" class="btn mt-3"><i class="fa-solid fa-trash text-danger"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <hr />
+                    <div class="mt-5">
+                        <form method="post" asp-action="Update" asp-controller="Status">
+                            <div class="form-group">
+                                <input type="hidden" name="id" class="form-control form-control-sm" value="@status.Id">
+                                <input type="text" name="name" class="form-control form-control-sm" value="@status.Name">
+                            </div>
+                            <div class="form-group text-end mt-3">
+                                <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+
+            <div class="text-center text-white card my-2 bg-secondary">
+                <button class="btn btn-secondary text-center" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-@(status.Id)">
+                    <span>@status.Name.Replace("i", "I").ToUpper()</span>
+                </button>
+
+            </div>
+            <!--Status detail offcanvas ends-->
 
             <!--Create issue starts-->
             <div class="col mt-2">
