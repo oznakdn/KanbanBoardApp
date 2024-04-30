@@ -45,7 +45,7 @@
                     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                
+
                 <div class="offcanvas-body">
                     <div class="text-end">
                         <form method="post" asp-action="Delete" asp-controller="Status">
@@ -63,7 +63,7 @@
                                 <input type="text" name="name" class="form-control form-control-sm" value="@status.Name">
                             </div>
                             <div class="form-group text-end mt-3">
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
                             </div>
                         </form>
                     </div>
@@ -78,9 +78,53 @@
             </div>
             <!--Status detail offcanvas ends-->
 
+
             <!--Create issue starts-->
             <div class="col mt-2">
-                <a class="btn btn-primary btn-block btn-sm my-2" asp-action="Create" asp-controller="Issue" asp-route-statusId="@status.Id"><i class="fa-solid fa-plus"></i></a>
+                <button class="btn btn-primary btn-block btn-sm my-2" data-bs-toggle="offcanvas" data-bs-target="#createIssue-@(status.Id)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <div class="offcanvas offcanvas-lg offcanvas-end" data-bs-scroll="true" tabindex="-1" id="createIssue-@(status.Id)" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Creating @status.Name.ToUpper() Issue</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body mt-4">
+                    <form method="post" asp-action="Create" asp-controller="Issue">
+                        <input type="hidden" name="statusId" value="@status.Id" />
+
+                        <div class="form-group">
+                            <label class="form-label">Summary</label>
+                            <input type="text" id="txtSummary" name="summary" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea id="txtDescription" class="form-control" name="description" rows="6"></textarea>
+                        </div>
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select name="priorityType" class="form-select">
+                                    <option value="0">Highest</option>
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Lowest</option>
+                                    <option value="4">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Issue Type</label>
+                                <select name="issueType" id="txtIssueType" class="form-select">
+                                    <option value="0">Story</option>
+                                    <option value="1">Task</option>
+                                    <option value="2">Bug</option>
+                                </select>
+                            </div>
+                        <div class="form-group mt-3 text-end">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <!--Create issue ends-->
 

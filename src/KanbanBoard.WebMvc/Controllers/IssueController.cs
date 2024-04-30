@@ -59,18 +59,21 @@ public class IssueController : Controller
         return View();
     }
 
+
     [HttpPost]
-    public async Task<IActionResult> Create(CreateIssueDto createIssue)
+    public async Task<IActionResult> Create(string statusId, string summary, string description,int priorityType, int issueType)
     {
-        createIssue.StatusId = TempData["statusId"]!.ToString()!;
+       
+            string boardId = await _manager.Issue.CreateIssueAsync(new CreateIssueDto
+            {
+                StatusId = statusId,
+                Summary = summary,
+                Description = description,
+                IssueType = issueType,
+                Priority = priorityType
+            });
 
-        if (ModelState.IsValid)
-        {
-            string boardId = await _manager.Issue.CreateIssueAsync(createIssue);
             return RedirectToAction("Index", "Status", new { id = boardId });
-        }
-
-        return View(createIssue);
 
     }
 
