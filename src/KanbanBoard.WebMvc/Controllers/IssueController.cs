@@ -1,7 +1,6 @@
-﻿using KanbanBoard.Application.Dtos.IssueDtos;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Services.Manager;
-using KanbanBoard.Core.Enums;
-using KanbanBoard.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanBoard.WebMvc.Controllers;
@@ -10,10 +9,12 @@ public class IssueController : Controller
 {
 
     private readonly IServiceManager _manager;
+    private readonly INotyfService _notyfService;
 
-    public IssueController(IServiceManager manager)
+    public IssueController(IServiceManager manager, INotyfService notyfService)
     {
         _manager = manager;
+        _notyfService = notyfService;
     }
 
     [HttpPost]
@@ -49,6 +50,7 @@ public class IssueController : Controller
     public async Task<IActionResult> Update(UpdateIssueDto updateIssue)
     {
         string boardId = await _manager.Issue.UpdateIssueAsync(updateIssue);
+        _notyfService.Success("Issue has been updated successful.");
         return Json(new { redirectToUrl = Url.Action("Index", "Status", new { id = boardId }) });
     }
 
@@ -73,7 +75,8 @@ public class IssueController : Controller
                 Priority = priorityType
             });
 
-            return RedirectToAction("Index", "Status", new { id = boardId });
+        _notyfService.Success("Issue has been created successful.");
+        return RedirectToAction("Index", "Status", new { id = boardId });
 
     }
 
@@ -81,6 +84,7 @@ public class IssueController : Controller
     public async Task<IActionResult> Delete(string id)
     {
         string boardId = await _manager.Issue.DeleteIssueAsync(id);
+        _notyfService.Success("Issue has been deleted successful.");
         return RedirectToAction("Index", "Status", new { id = boardId });
     }
 

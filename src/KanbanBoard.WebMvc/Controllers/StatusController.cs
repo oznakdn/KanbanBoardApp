@@ -1,4 +1,5 @@
-﻿using KanbanBoard.Application.Dtos.StatusDtos;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using KanbanBoard.Application.Dtos.StatusDtos;
 using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.WebMvc.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +9,13 @@ namespace KanbanBoard.WebMvc.Controllers;
 public class StatusController : Controller
 {
     private readonly IServiceManager _manager;
+    private readonly INotyfService _notyfService;
 
-    public StatusController(IServiceManager manager)
+
+    public StatusController(IServiceManager manager, INotyfService notyfService)
     {
         _manager = manager;
+        _notyfService = notyfService;
     }
 
     public async Task<IActionResult> Index(string id)
@@ -33,6 +37,7 @@ public class StatusController : Controller
             Name = name
         });
 
+        _notyfService.Success("Status has been created successful.");
         return RedirectToAction(nameof(Index), "Status", new { id = boardId });
     }
 
@@ -40,6 +45,7 @@ public class StatusController : Controller
     public async Task<IActionResult> Delete(string id)
     {
         string boardId = await _manager.Status.DeleteStatusAsync(id);
+        _notyfService.Success("Status has been deleted successful.");
         return RedirectToAction(nameof(Index), "Status", new { id = boardId });
     }
 
@@ -52,6 +58,8 @@ public class StatusController : Controller
             Id = id,
             Name = name
         });
+
+        _notyfService.Success("Status has been updated successful.");
         return RedirectToAction(nameof(Index), "Status", new { id = boardId });
     }
 

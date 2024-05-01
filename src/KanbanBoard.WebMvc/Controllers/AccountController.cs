@@ -3,6 +3,7 @@ using KanbanBoard.Application.Dtos.IdentityDtos;
 using KanbanBoard.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace KanbanBoard.WebMvc.Controllers;
 
@@ -65,6 +66,28 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisterDto register)
     {
+        var errors = new StringBuilder();
+
+        if(string.IsNullOrWhiteSpace(register.Username))
+        {
+            errors.AppendLine("Username cannot be empty");
+        }
+        if(string.IsNullOrWhiteSpace(register.Email))
+        {
+            errors.AppendLine("Email cannot be empty!");
+        }
+        if(string.IsNullOrWhiteSpace(register.Password))
+        {
+            errors.AppendLine("Password cannot be empty!");
+        }
+
+        if(errors.Length > 0)
+        {
+            _notyfService.Warning(errors.ToString());
+            return View();
+        }
+
+
         var existUser = await _userManager.FindByNameAsync(register.Username);
 
         if (existUser is not null)
@@ -81,17 +104,17 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            _notyfService.Success("Login successful.");
+            _notyfService.Success("Your login was successful.");
             return RedirectToAction("Login", "Account", new { username = register.Username });
         }
 
-        _notyfService.Warning("Username, Email or/and Password invalid!");
-        return View(register);
+        return View();
     }
 
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
+        _notyfService.Success("You have successfully logged out of the system.");
         return RedirectToAction(nameof(Login));
     }
 
