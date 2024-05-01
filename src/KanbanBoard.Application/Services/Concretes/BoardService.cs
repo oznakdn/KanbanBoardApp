@@ -28,7 +28,7 @@ public class BoardService : IBoardService
     public async Task DeleteBoardAsync(string id, CancellationToken cancellationToken = default)
     {
         var board = await _repository.Board.FindByIdAsync(id, cancellationToken);
-        _repository.Board.Update(board);
+        _repository.Board.Delete(board);
         await _repository.SaveAsync(cancellationToken);
     }
 
