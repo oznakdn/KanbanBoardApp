@@ -1,0 +1,75 @@
+﻿@model KanbanBoard.Application.Dtos.IdentityDtos.RegisterDto
+
+<div class="row d-flex mt-3">
+    <div class="display-6 text-start col">@ViewBag.pageName</div>
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <div class="text-end col">
+            <span>@User.Identity.Name</span>
+        </div>
+    }
+
+</div>
+<hr />
+
+<div class="row justify-content-center mt-3">
+    <div class="text-center col display-3">REGISTER</div>
+</div>
+
+<div class="row mt-5 justify-content-center">
+    <div class="col-3">
+        <form method="post" asp-action="Register">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form3Example3">Username</label>
+                    <input type="text" asp-for="Username" id="form3Example3" class="form-control" />
+                </div>
+
+                <!-- Email input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form3Example3">Email address</label>
+                    <input type="email" asp-for="Email" id="form3Example3" class="form-control" />
+                </div>
+
+                <!-- Password input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form3Example4">Password</label>
+                    <input type="password" asp-for="Password" id="form3Example4" class="form-control" />
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-center mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                    <label class="form-check-label" for="form2Example33">
+                        Subscribe to our newsletter
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+                    Sign up
+                </button>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>or sign up with:</p>
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+            </form>
+    </div>
+</div>
+

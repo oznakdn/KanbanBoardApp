@@ -30,7 +30,11 @@
         </div>
         <div class="item">
             <span class="glyphicon glyphicon-log-out"></span>
-            Log Out
+            <a href="#" class="text-white" style="text-decoration-line:none;">Sign Out</a>
+        </div>
+        <div class="item">
+            <span class="glyphicon glyphicon-log-in"></span>
+            <a asp-action="Login" asp-controller="Account" class="text-white" style="text-decoration-line:none;">Sign In</a>
         </div>
 
         <!--Kullanici login oldugunda -->
@@ -106,6 +110,7 @@
             $("#wrapper").toggleClass("active");
         });
     </script>
+    @await Component.InvokeAsync("Notyf");
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
