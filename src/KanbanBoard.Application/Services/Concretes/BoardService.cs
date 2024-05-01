@@ -39,7 +39,7 @@ public class BoardService : IBoardService
     public async Task<IEnumerable<GetBoardDto>> GetBoardsAsync(CancellationToken cancellationToken = default)
     {
         var boards = await _repository.Board.FindAllAsync(cancellationToken, includes: x => x.Statuses);
-        return boards.Select(x => new GetBoardDto
+        return boards.OrderByDescending(x=>x.CreatedDate).Select(x => new GetBoardDto
         {
             Id = x.Id,
             Title = x.Title,
