@@ -30,10 +30,22 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto login)
     {
-
-        if (string.IsNullOrWhiteSpace(login.Username) || string.IsNullOrWhiteSpace(login.Password))
+        var errors = new List<string>();
+        if (string.IsNullOrWhiteSpace(login.Username))
         {
-            _notyfService.Warning("Username and/or Password cannot be empty!");
+            errors.Add("Username cannot be empty!");
+        }
+        if(string.IsNullOrWhiteSpace(login.Password))
+        {
+            errors.Add("Password cannot be empty!");
+        }
+
+        if(errors.Count>0)
+        {
+            errors.ForEach(error =>
+            {
+                _notyfService.Warning(error);
+            });
             return View();
         }
 
@@ -66,24 +78,29 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisterDto register)
     {
-        var errors = new StringBuilder();
+        var errors = new List<string>();
 
-        if(string.IsNullOrWhiteSpace(register.Username))
+        if (string.IsNullOrWhiteSpace(register.Username))
         {
-            errors.AppendLine("Username cannot be empty");
+            errors.Add("Username cannot be empty!");
         }
-        if(string.IsNullOrWhiteSpace(register.Email))
+        if (string.IsNullOrWhiteSpace(register.Email))
         {
-            errors.AppendLine("Email cannot be empty!");
+            errors.Add("Email cannot be empty!");
         }
-        if(string.IsNullOrWhiteSpace(register.Password))
+        if (string.IsNullOrWhiteSpace(register.Password))
         {
-            errors.AppendLine("Password cannot be empty!");
+            errors.Add("Password cannot be empty!");
         }
 
-        if(errors.Length > 0)
+        if (errors.Count > 0)
         {
-            _notyfService.Warning(errors.ToString());
+            errors.ForEach(error =>
+            {
+                _notyfService.Warning(error);
+
+            });
+
             return View();
         }
 
