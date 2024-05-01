@@ -17,33 +17,3 @@ public class Issue : AbstractModel
     public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>(); // Issue'ya ait yorumlar
 
 }
-
-// Issue repository Insert metodu
-
-/*
- 
-  var task = new Task()
-    {
-        ColumnId = columnId,
-        Title = title,
-        Description = description,
-        Order = GetNextOrder(columnId) // Sıradaki order'ı alır
-    };
-
-    dbContext.Tasks.Add(task);
-    dbContext.SaveChanges();
- 
- 
- */
-
-/*
- * 
-private int GetNextOrder(int columnId)
-{
-    // Veritabanından kolondaki son order'ı alır
-    var lastOrder = dbContext.Tasks.Where(t => t.ColumnId == columnId).Max(t => t.Order) ?? 0;
-
-    return lastOrder + 1; // Sonraki order'ı hesaplar
-}
- 
-*/
