@@ -25,6 +25,13 @@ public class BoardService : IBoardService
         await _repository.SaveAsync(cancellationToken);
     }
 
+    public async Task DeleteBoardAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var board = await _repository.Board.FindByIdAsync(id, cancellationToken);
+        _repository.Board.Update(board);
+        await _repository.SaveAsync(cancellationToken);
+    }
+
     public async Task<GetBoardDto> GetBoardByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var board = await _repository.Board.FindByIdAsync(id, cancellationToken);
@@ -45,5 +52,16 @@ public class BoardService : IBoardService
             Title = x.Title,
             Description = x.Description,
         }).ToList();
+    }
+
+    public async Task UpdateBoardAsync(UpdateBoardDto updateBoard, CancellationToken cancellationToken = default)
+    {
+        var board = await _repository.Board.FindByIdAsync(updateBoard.Id, cancellationToken);
+
+        board.Title = updateBoard.Title;
+        board.Description = updateBoard.Description;
+
+        _repository.Board.Update(board);
+        await _repository.SaveAsync(cancellationToken);
     }
 }
