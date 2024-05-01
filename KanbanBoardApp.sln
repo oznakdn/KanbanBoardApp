@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanbanBoard.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanbanBoard.Shared", "src\KanbanBoard.Shared\KanbanBoard.Shared.csproj", "{D86A48F5-FE78-4555-9FC5-5D0F9E229BF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanBoard.WebMvc", "src\KanbanBoard.WebMvc\KanbanBoard.WebMvc.csproj", "{BC4B84EF-16CE-4E0B-AC14-537C917E994A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanbanBoard.WebMvc", "src\KanbanBoard.WebMvc\KanbanBoard.WebMvc.csproj", "{BC4B84EF-16CE-4E0B-AC14-537C917E994A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E3AEBB9C-1A3E-40A2-9574-61366A8669FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
