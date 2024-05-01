@@ -17,7 +17,7 @@
     </div>
     <div class="offcanvas-body mt-4">
         <form method="post" asp-action="Create" asp-controller="Board">
-          
+
             <div class="form-group">
                 <label class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" />
@@ -34,6 +34,7 @@
 </div>
 
 <!--Create project offcanvas ends-->
+
 
 <div class="row mt-5 d-flex" id="boards">
 
@@ -54,23 +55,26 @@
                     let html = "";
                     $.each(data, (index, value) => {
                         html += `<div class='col'>
-                                          <a href="/Status/Index/${value.id}" style="text-decoration-line:none;">
-                                            <div class="text-center text-white">
-                                                <div class="card bg-primary opacity-50">
-                                                     <div class="card-body">
-                                                         <div>${value.title}</div>
-                                                      </div>
-                                                    </div>
-                                            </div>
-                                         </a>
-                                     </div>
+                                      <div class="text-center text-white">
+                                             <div class="card bg-primary">
+                                                   <div class="card-body">
+                                                        <a href="/Status/Index/${value.id}" class="text-white">${value.title}</a>
+                                                   </div>
+                                              </div>
+                                      </div>
+                                                  
+                                   </div>
                                          `
                     });
 
                     $('#boards').html(html);
                 }
 
+                
+
             });
+
+            
 
         });
     </script>

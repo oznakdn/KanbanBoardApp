@@ -36,5 +36,25 @@ public class BoardController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Update(string id, string title, string description)
+    {
+        await _manager.Board.UpdateBoardAsync(new UpdateBoardDto
+        {
+            Id = id,
+            Title = title,
+            Description = description
+        });
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult>Delete(string id)
+    {
+        await _manager.Board.DeleteBoardAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+
 
 }
