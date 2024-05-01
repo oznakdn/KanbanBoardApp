@@ -15,13 +15,14 @@
 <div class="row d-flex mt-3">
     <div class="display-6 text-start col">Board / @ViewData["boardTitle"]</div>
     <div class="text-end col">
-        <a asp-action="Index" asp-controller="Board" class="btn btn-warning">Projects</a>
+        <a asp-action="Index" asp-controller="Board" class="btn btn-secondary">Projects</a>
     </div>
 </div>
 <hr />
 
+
 <div class="row d-flex">
-    <span class="text-dark mx-2">
+    <div class="col text-start">
         <span class="text-primary m-4">Task <i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i></span>
         <span class="text-danger m-4">Bug <i class="fa-solid fa-sm fa-bug text-danger mx-1"></i></span>
         <span class="text-success m-4">Story <i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i></span>
@@ -29,15 +30,56 @@
         <span class="text-danger m-4">Highest - High <i class="fa-solid fa-sm fa-arrow-up text-danger"></i></span>
         <span class="text-success m-4">Lowest - Low <i class="fa-solid fa-sm fa-arrow-up text-success"></i></span>
         <span class="text-warning m-4">Medium <i class="fa-solid fa-sm fa-arrow-up text-warning"></i></span>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-sm btn-outline-warning align-items-end" data-bs-toggle="offcanvas" data-bs-target="#updateBoard"><i class="fa-solid fa-pen"></i></button>
 
-    </span>
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="updateBoard" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                @*<div class="text-end">
+                    <form method="post" asp-action="Delete" asp-controller="Status">
+                        <div class="form-group">
+                            <input type="hidden" name="id" class="form-control form-control-sm" value="@ViewData["boardId"]">
+                            <button type="submit" class="btn mt-3"><i class="fa-solid fa-trash text-danger"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <hr />*@
+                <div class="mt-5  text-start">
+                    <form method="post" asp-action="Update" asp-controller="Board">
+                        <input type="hidden" name="id" class="form-control form-control-sm" value="@ViewData["boardId"]">
+                        <div class="form-group">
+                            <label class="form-label">Title</label> 
+                            <input type="text" name="title" class="form-control form-control-sm" value="@ViewData["boardTitle"]">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description">@ViewData["boardDescription"]</textarea>
+                        </div>
+                        <div class="form-group text-end mt-3">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-sm btn-outline-danger align-items-end"><i class="fa-solid fa-trash"></i></button>
+    </div>
+
+
 </div>
+
+
 <hr />
 
 
 
 
-<div class="row d-flex mt-5 text-center">
+<div class="row d-flex text-center">
     @foreach (var status in Model)
     {
         <div class="col d-inline" style="height: auto;">
@@ -80,8 +122,6 @@
 
             </div>
             <!--Status detail offcanvas ends-->
-
-
             <!--Create issue starts-->
             <div class="col mt-2">
                 <button class="btn btn-outline-primary btn-block btn-sm my-2" data-bs-toggle="offcanvas" data-bs-target="#createIssue-@(status.Id)"><i class="fa-solid fa-plus"></i></button>
@@ -105,24 +145,24 @@
                             <label class="form-label">Description</label>
                             <textarea id="txtDescription" class="form-control" name="description" rows="6"></textarea>
                         </div>
-                            <div class="form-group">
-                                <label class="form-label">Priority</label>
-                                <select name="priorityType" class="form-select">
-                                    <option value="0">Highest</option>
-                                    <option value="1">High</option>
-                                    <option value="2">Medium</option>
-                                    <option value="3">Lowest</option>
-                                    <option value="4">Low</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Issue Type</label>
-                                <select name="issueType" id="txtIssueType" class="form-select">
-                                    <option value="0">Story</option>
-                                    <option value="1">Task</option>
-                                    <option value="2">Bug</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <select name="priorityType" class="form-select">
+                                <option value="0">Highest</option>
+                                <option value="1">High</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Lowest</option>
+                                <option value="4">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Issue Type</label>
+                            <select name="issueType" id="txtIssueType" class="form-select">
+                                <option value="0">Story</option>
+                                <option value="1">Task</option>
+                                <option value="2">Bug</option>
+                            </select>
+                        </div>
                         <div class="form-group mt-3 text-end">
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                         </div>

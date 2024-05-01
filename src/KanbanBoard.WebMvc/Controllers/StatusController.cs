@@ -20,6 +20,7 @@ public class StatusController : Controller
         var status = await _manager.Status.GetStatusByBoardIdAsync(id);
         ViewData["boardId"] = id;
         ViewData["boardTitle"] = board.Title;
+        ViewData["boardDescription"] = board.Description;
         return View(status);
     }
 
