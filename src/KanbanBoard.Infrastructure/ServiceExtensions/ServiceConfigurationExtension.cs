@@ -3,6 +3,7 @@ using KanbanBoard.Infrastructure.EFContext;
 using KanbanBoard.Infrastructure.Repositories.Concretes;
 using KanbanBoard.Infrastructure.Repositories.Interfaces;
 using KanbanBoard.Infrastructure.Repositories.Manager;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,7 @@ public static class ServiceConfigurationExtension
     {
         services.AddDbContext<EfDbContext>(options => options.UseSqlite(configuration.GetConnectionString("SqliteConnection")));
 
-        services.AddIdentityCore<User>(opt =>
+        services.AddIdentity<User,IdentityRole>(opt =>
         {
             opt.Password.RequiredLength = 6;
             opt.Password.RequireNonAlphanumeric = false;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KanbanBoard.Infrastructure.EFContext;
 
-public class EfDbContext : IdentityDbContext<User, IdentityRole, string>
+public class EfDbContext : IdentityDbContext<User>
 {
     public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
     {
