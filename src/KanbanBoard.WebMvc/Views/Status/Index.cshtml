@@ -177,11 +177,11 @@
                         <div class="card-title text-end">
                             <form method="post" asp-action="Delete" asp-controller="Issue">
                                 <input type="hidden" name="id" value="@issue.Id" />
-                                <button type="submit" class="btn mt-2"><i class="fa-solid fa-trash text-danger"></i></button>
+                                <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i></button>
                             </form>
                         </div>
                         <div class="card-body">
-                            <span class="card-title">@issue.Summary</span>
+                            <small class="card-title">@issue.Summary</small>
                         </div>
                         <div class="text-start p-2">
                             @if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Task)
