@@ -4,6 +4,15 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
 <div id="dialog" title="Issue Detail">
+    <div class="row d-flex">
+        <div class="col text-end">
+            <form method="post" asp-action="Delete" asp-controller="Issue">
+                <input type="hidden" name="id" value="@TempData["issueId"]" />
+                <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash text-danger"></i></button>
+            </form>
+        </div>
+    </div>
+    <hr />
     <form method="post">
         <input type="hidden" asp-for="BoardId" id="boardId" value="@Model.BoardId" />
         <input type="hidden" id="txtId" value="@Model.Id" asp-for="Id" />
@@ -109,8 +118,8 @@
             let boardId = $("#boardId").val();
 
             $("#dialog").dialog({
-                height: 600,
-                width: 900,
+                height: 730,
+                width: 950,
                 modal: true,
                 resizable: false,
                 show: {

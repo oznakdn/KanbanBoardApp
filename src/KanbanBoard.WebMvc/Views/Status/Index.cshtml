@@ -173,13 +173,7 @@
             <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:600px;" id="@status.Id">
                 @foreach (var issue in status.Issues)
                 {
-                    <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="mt-2 mb-3 p-0 portlet rounded-3 border border-2"  style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
-                        <div class="text-end">
-                            <form method="post" asp-action="Delete" asp-controller="Issue">
-                                <input type="hidden" name="id" value="@issue.Id" />
-                                <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
+                    <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="my-1 p-0 portlet rounded border border-2"  style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
                         <span>
                             <small class="card-title">@issue.Summary</small>
                         </span>

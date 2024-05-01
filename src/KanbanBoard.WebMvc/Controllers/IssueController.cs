@@ -29,7 +29,7 @@ public class IssueController : Controller
     {
         var issue = await _manager.Issue.GetIssueByIdAsync(id);
         var status = await _manager.Status.GetStatusByIdAsync(issue.StatusId);
-
+        TempData["issueId"] = id;
         var issueDto = new UpdateIssueDto
         {
             Id = issue.Id,
