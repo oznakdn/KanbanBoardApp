@@ -29,8 +29,8 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto login)
     {
-       
-        if(string.IsNullOrWhiteSpace(login.Username) || string.IsNullOrWhiteSpace(login.Password))
+
+        if (string.IsNullOrWhiteSpace(login.Username) || string.IsNullOrWhiteSpace(login.Password))
         {
             _notyfService.Warning("Username and/or Password cannot be empty!");
             return View();
@@ -48,7 +48,7 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             _notyfService.Success("Login successful.");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Board");
         }
 
         _notyfService.Warning("Username and/or Password is wrong!");
@@ -82,11 +82,17 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             _notyfService.Success("Login successful.");
-            return RedirectToAction("Login", "Account",new {username=register.Username});
+            return RedirectToAction("Login", "Account", new { username = register.Username });
         }
 
         _notyfService.Warning("Username, Email or/and Password invalid!");
         return View(register);
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction(nameof(Login));
     }
 
 }

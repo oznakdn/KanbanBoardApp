@@ -18,28 +18,27 @@
             <span class="glyphicon glyphicon-align-justify" style="margin-left:17px;"></span>
         </div>
 
-        <!--Kullanici login oldugunda -->
-        <div class="item">
-            <span class="glyphicon glyphicon-book"></span>
-            About
-        </div>
 
-        <div class="item">
-            <span class="glyphicon glyphicon-briefcase"></span>
-            <a asp-action="Index" asp-controller="Board" class="text-white" style="text-decoration-line:none;">Projects</a>
-        </div>
-        <div class="item">
-            <span class="glyphicon glyphicon-log-out"></span>
-            <a href="#" class="text-white" style="text-decoration-line:none;">Sign Out</a>
-        </div>
-        <div class="item">
-            <span class="glyphicon glyphicon-log-in"></span>
-            <a asp-action="Login" asp-controller="Account" class="text-white" style="text-decoration-line:none;">Sign In</a>
-        </div>
-
-        <!--Kullanici login oldugunda -->
-
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <div class="item">
+                <span class="glyphicon glyphicon-briefcase"></span>
+                <a asp-action="Index" asp-controller="Board" class="text-white" style="text-decoration-line:none;">Projects</a>
+            </div>
+            <div class="item">
+                <span class="glyphicon glyphicon-log-out"></span>
+                <a asp-action="Logout" asp-controller="Account" class="text-white" style="text-decoration-line:none;">Sign Out</a>
+            </div>
+        }
+        else
+        {
+            <div class="item">
+                <span class="glyphicon glyphicon-log-in"></span>
+                <a asp-action="Login" asp-controller="Account" class="text-white" style="text-decoration-line:none;">Sign In</a>
+            </div>
+        }
     </div>
+
     @if (User.Identity.IsAuthenticated)
     {
         <div class="right">
@@ -47,7 +46,7 @@
                 <tr>
                     <td class="title search col-md-9">
                         <div class="inner-addon right-addon">
-                            <input class="col-md-12" type="search" placeholder="Поиск">
+                            <input class="col-md-12" type="search" placeholder="search...">
                             <i class="glyphicon glyphicon-search"></i>
                         </div>
                     </td>
