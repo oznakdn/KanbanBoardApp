@@ -55,13 +55,13 @@
                     let html = "";
                     $.each(data, (index, value) => {
                         html += `<div class='col'>
-                                      <div class="text-center text-white">
+                                      <a class="text-center text-white" href="/Status/Index/${value.id}" style="text-decoration-line:none;">
                                              <div class="card bg-primary">
                                                    <div class="card-body">
-                                                        <a href="/Status/Index/${value.id}" class="text-white">${value.title}</a>
+                                                        <span class="text-white">${value.title}</span>
                                                    </div>
                                               </div>
-                                      </div>
+                                      </a>
                                                   
                                    </div>
                                          `
