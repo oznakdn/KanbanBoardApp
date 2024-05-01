@@ -170,19 +170,19 @@
             </div>
             <!--Create issue ends-->
 
-            <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:100px;" id="@status.Id">
+            <div class="col connectedSortable sortable card text-primary mx-2 p-2" style="background-color: #F7F7F7; font-size:medium; height:auto; min-height:600px;" id="@status.Id">
                 @foreach (var issue in status.Issues)
                 {
-                    <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="card mt-2 mb-3 p-0 portlet border-2" style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
-                        <div class="card-title text-end">
+                    <a asp-action="IssueDetail" asp-controller="Issue" asp-route-id="@issue.Id" class="mt-2 mb-3 p-0 portlet rounded-3 border border-2"  style="background-color: #EBECF0; text-decoration:none;" id="@issue.Id">
+                        <div class="text-end">
                             <form method="post" asp-action="Delete" asp-controller="Issue">
                                 <input type="hidden" name="id" value="@issue.Id" />
                                 <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i></button>
                             </form>
                         </div>
-                        <div class="card-body">
+                        <span>
                             <small class="card-title">@issue.Summary</small>
-                        </div>
+                        </span>
                         <div class="text-start p-2">
                             @if (issue.IssueType == KanbanBoard.Core.Enums.IssueType.Task)
                             {
