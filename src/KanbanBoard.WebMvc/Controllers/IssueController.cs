@@ -1,8 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using KanbanBoard.Application.Dtos.IssueDtos;
 using KanbanBoard.Application.Services.Manager;
+using KanbanBoard.Core.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace KanbanBoard.WebMvc.Controllers;
@@ -11,12 +15,16 @@ public class IssueController : Controller
 {
 
     private readonly IServiceManager _manager;
+    private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
     private readonly INotyfService _notyfService;
 
-    public IssueController(IServiceManager manager, INotyfService notyfService)
+    public IssueController(IServiceManager manager, INotyfService notyfService, UserManager<User> userManager, SignInManager<User> signInManager)
     {
         _manager = manager;
         _notyfService = notyfService;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     [HttpPost]
@@ -31,7 +39,6 @@ public class IssueController : Controller
     {
         var issue = await _manager.Issue.GetIssueByIdAsync(id);
         var status = await _manager.Status.GetStatusByIdAsync(issue.StatusId);
-        TempData["issueId"] = id;
         var issueDto = new UpdateIssueDto
         {
             Id = issue.Id,
@@ -42,6 +49,11 @@ public class IssueController : Controller
             Priority = Convert.ToInt16(issue.Priority),
             BoardId = status.BoardId
         };
+
+        TempData["issueId"] = id;
+        TempData["userId"] = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var issueComments = await _manager.Comment.GetCommentsByIssueIdAsync(id);
+        TempData["issueComments"] = issueComments;
 
         return View(issueDto);
 

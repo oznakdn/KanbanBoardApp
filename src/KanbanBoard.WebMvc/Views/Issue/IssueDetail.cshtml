@@ -46,13 +46,13 @@
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-arrow-up text-warning"></i> Priority</label>
                         }
-                    <select asp-for="Priority" id="txtPriority" class="form-select form-select-sm">
-                        <option value="0">Highest</option>
-                        <option value="1">High</option>
-                        <option value="2">Medium</option>
-                        <option value="3">Lowest</option>
-                        <option value="4">Low</option>
-                    </select>
+                        <select asp-for="Priority" id="txtPriority" class="form-select form-select-sm">
+                            <option value="0">Highest</option>
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Lowest</option>
+                            <option value="4">Low</option>
+                        </select>
                     </div>
                 </div>
                 <div class="card-body">
@@ -70,11 +70,11 @@
                         {
                             <label class="form-label"><i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i> Issue Type</label>
                         }
-                    <select asp-for="IssueType" id="txtIssueType" class="form-select form-select-sm">
-                        <option value="0">Story</option>
-                        <option value="1">Task</option>
-                        <option value="2">Bug</option>
-                    </select>
+                        <select asp-for="IssueType" id="txtIssueType" class="form-select form-select-sm">
+                            <option value="0">Story</option>
+                            <option value="1">Task</option>
+                            <option value="2">Bug</option>
+                        </select>
                     </div>
                 </div>
                 <div class="card-body">
@@ -91,17 +91,42 @@
         </div>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </form>
-<div class="row d-flex mx-1 justify-content-between mt-3">
-            <div class="col card">
-                <div class="card-body">
+    <div class="row d-flex mx-1 justify-content-between mt-3">
+        <div class="col card">
+            <div class="card-body">
+                <form method="post" asp-action="Create" asp-controller="Comment">
+                    <input type="hidden" name="issueId" value="@TempData["issueId"]" />
+                    <input type="hidden" name="userId" value="@TempData["userId"]" />
                     <div class="form-group">
                         <label class="form-label">Comments</label>
-                        <input type="text" name="name" value="" class="form-control" />
-                        <button class="btn btn-success btn-sm mt-1">Send</button>
+                        <input type="text" name="text" class="form-control" />
+                        <button class="btn btn-success btn-sm mt-1">Save</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+    <div class="row d-flex mx-1 mt-3">
+        <div class="col card">
+
+            @foreach (var comment in (IEnumerable<KanbanBoard.Application.Dtos.CommentDtos.GetCommentDto>)TempData["issueComments"]!)
+            {
+                <div class="card-body">
+                    <span class="text-start">
+                        <img src="@comment.UserProfilePicture" class="img-fluid rounded-circle" height="30" width="30" />
+                        <span class="mx-2">@comment.Username</span>
+                    </span>
+                    <span class="text-end">
+                        <span class="text-end">@comment.CommentDate.ToLongDateString()</span>
+                    </span>
+                    <p class="text-primary mt-2">@comment.Text</p>
+                    <hr />
+
+                </div>
+            }
+        </div>
+    </div>
+
 </div>
 
 

@@ -1,7 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using KanbanBoard.Application.Dtos.StatusDtos;
 using KanbanBoard.Application.Services.Manager;
-using KanbanBoard.WebMvc.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
