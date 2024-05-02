@@ -11,4 +11,6 @@ public interface IIssueService
 
     Task<string> UpdateIssueStatusAndOrderAsync(UpdateIssueStatusDto updateIssueStatus, CancellationToken cancellationToken = default(CancellationToken));
     Task<GetIssueDto> GetIssueByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken));
+    Task<GetIssueStatisticsDto> GetIssueStatisticsAsync(CancellationToken cancellationToken = default(CancellationToken));
+
 }

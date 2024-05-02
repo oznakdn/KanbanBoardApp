@@ -219,4 +219,17 @@ public class IssueService : IIssueService
         }
         return status.BoardId;
     }
+
+    public async Task<GetIssueStatisticsDto> GetIssueStatisticsAsync(CancellationToken cancellationToken = default)
+    {
+        var issues = await _repository.Issue.FindAllAsync(cancellationToken);
+        return new GetIssueStatisticsDto
+        {
+            StoryCount = issues.Where(x => x.IssueType == IssueType.Story).Count(),
+            TaskCount = issues.Where(x => x.IssueType == IssueType.Task).Count(),
+            BugCount = issues.Where(x => x.IssueType == IssueType.Bug).Count(),
+        };
+
+
+    }
 }
