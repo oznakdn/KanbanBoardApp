@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7F43FCED-5F1F-47D2-9D75-1C7D455ADDAE}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanbanBoard.Core", "src\KanbanBoard.Core\KanbanBoard.Core.csproj", "{29356B38-A3BA-4F20-9FF3-7A43A22017A2}"
 EndProject

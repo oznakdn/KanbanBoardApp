@@ -1,0 +1,33 @@
+version: '3.4'
+
+networks:
+  kanban-board:
+    driver: bridge 
+
+services:
+  kanbanboard-web:
+    image: kanbanboard.webmvc:latest
+    depends_on:
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: C:/Users/ozana/OneDrive/Desktop/KanbanBoardApp/src/KanbanBoard.WebMvc/Dockerfile
+    ports:
+      - "8081:80"     
+    environment:
+     ASPNETCORE_ENVIRONMENT: Development
+     ConnectionStrings:PostgresConnection: "host=postgres_image;port=5432;database=KanbanBoardDB;username=postgres;password=123456"
+    networks:
+      - kanban-board  
+  
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "KanbanBoardDB"
+    networks:
+      - kanban-board
