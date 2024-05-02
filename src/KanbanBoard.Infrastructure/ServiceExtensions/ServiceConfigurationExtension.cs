@@ -12,9 +12,9 @@ namespace KanbanBoard.Infrastructure.ServiceExtensions;
 
 public static class ServiceConfigurationExtension
 {
-    public static void AddInfrastructureContainer(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructureContainer(this IServiceCollection services,IConfiguration configuration, string connectionString)
     {
-        services.AddDbContext<EfDbContext>(options => options.UseSqlite(configuration.GetConnectionString("SqliteConnection")));
+        services.AddDbContext<EfDbContext>(options => options.UseNpgsql(configuration.GetConnectionString(connectionString)));
 
         services.AddIdentity<User,IdentityRole>(opt =>
         {

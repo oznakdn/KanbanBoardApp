@@ -1,5 +1,4 @@
 ﻿using KanbanBoard.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +21,7 @@ public class EfDbContext : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
 
+      
 
         string boardId = Guid.NewGuid().ToString();
 
@@ -29,10 +29,9 @@ public class EfDbContext : IdentityDbContext<User>
             .HasData(new Board
             {
                 Id = boardId,
-                Title = "First Board",
-                Description = "First Board Description",
-
-
+                Title = "Revamping User Onboarding",
+                Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.",
+                CreatedDate = DateTime.UtcNow
             });
 
 
@@ -44,22 +43,26 @@ public class EfDbContext : IdentityDbContext<User>
              {
                  Id = statusId,
                  BoardId = boardId,
-                 Name = "To Do"
+                 Name = "To Do",
+                 CreatedDate = DateTime.UtcNow
              },
               new Status
               {
                   BoardId = boardId,
-                  Name = "In Progress"
+                  Name = "In Progress",
+                  CreatedDate = DateTime.UtcNow
               },
               new Status
               {
                   BoardId = boardId,
-                  Name = "Testing"
+                  Name = "Testing",
+                  CreatedDate = DateTime.UtcNow
               },
               new Status
               {
                   BoardId = boardId,
-                  Name = "Done"
+                  Name = "Done",
+                  CreatedDate = DateTime.UtcNow
               });
 
         builder.Entity<Issue>()
@@ -67,31 +70,34 @@ public class EfDbContext : IdentityDbContext<User>
             new Issue
             {
                 StatusId = statusId,
-                Summary = "First Issue",
-                Description = "First Issue Description",
-                IssueType = Core.Enums.IssueType.Task,
-                Priority = Core.Enums.PriorityType.Medium,
-                Order = 0
-            },
-            new Issue
-            {
-                StatusId = statusId,
-                Summary = "Second Issue",
-                Description = "Second Issue Description",
+                Summary = " Create Interactive Tutorial for New Users",
+                Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.",
                 IssueType = Core.Enums.IssueType.Story,
-                Priority = Core.Enums.PriorityType.Low,
-                Order = 1
+                Priority = Core.Enums.PriorityType.Medium,
+                Order = 0,
+                CreatedDate = DateTime.UtcNow
             },
             new Issue
             {
                 StatusId = statusId,
-                Summary = "Third Issue",
-                Description = "Third Issue Description",
+                Summary = "Design Mobile-Friendly Welcome Screen",
+                Description = "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.",
+                IssueType = Core.Enums.IssueType.Task,
+                Priority = Core.Enums.PriorityType.Low,
+                Order = 1,
+                CreatedDate = DateTime.UtcNow
+            },
+            new Issue
+            {
+                StatusId = statusId,
+                Summary = "Welcome Email Not Sending to New Users",
+                Description = "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.",
                 IssueType = Core.Enums.IssueType.Bug,
                 Priority = Core.Enums.PriorityType.High,
-                Order = 2
+                Order = 2,
+                CreatedDate = DateTime.UtcNow
             });
-
+       
 
 
         builder.Entity<UserIssues>()

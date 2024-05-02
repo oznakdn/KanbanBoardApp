@@ -4,6 +4,7 @@ using KanbanBoard.Infrastructure.EFContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,22 +16,26 @@ namespace KanbanBoard.Infrastructure.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.17");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.17")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("KanbanBoard.Core.Models.Board", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -39,32 +44,32 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7250),
-                            Description = "First Board Description",
-                            Title = "First Board"
+                            Id = "c3ceaabd-cddc-44c3-8df9-d66de110d41f",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7293),
+                            Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.",
+                            Title = "Revamping User Onboarding"
                         });
                 });
 
             modelBuilder.Entity("KanbanBoard.Core.Models.Comment", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("IssueId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -78,30 +83,30 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("KanbanBoard.Core.Models.Issue", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("IssueType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Priority")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("StatusId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Summary")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -112,54 +117,54 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a8c61dbc-7091-41d1-bc9f-d11d59c69228",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7708),
-                            Description = "First Issue Description",
-                            IssueType = 1,
+                            Id = "5d5bfc94-6f77-47af-ade7-09e8cecc47bb",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7579),
+                            Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.",
+                            IssueType = 0,
                             Order = 0,
                             Priority = 2,
-                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
-                            Summary = "First Issue"
+                            StatusId = "d07312ce-4428-4295-ae98-beb8d9d56128",
+                            Summary = " Create Interactive Tutorial for New Users"
                         },
                         new
                         {
-                            Id = "8a5e18b5-ec44-4785-97ae-a13ed61224d5",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7713),
-                            Description = "Second Issue Description",
-                            IssueType = 0,
+                            Id = "f12b2b8c-5626-49de-9798-b5ce61c373e3",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7584),
+                            Description = "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.",
+                            IssueType = 1,
                             Order = 1,
                             Priority = 4,
-                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
-                            Summary = "Second Issue"
+                            StatusId = "d07312ce-4428-4295-ae98-beb8d9d56128",
+                            Summary = "Design Mobile-Friendly Welcome Screen"
                         },
                         new
                         {
-                            Id = "5dfd93a0-476f-49cc-b187-096ee968abf8",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7717),
-                            Description = "Third Issue Description",
+                            Id = "9523a06a-d799-4422-b2f1-fb6400eacedd",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7589),
+                            Description = "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.",
                             IssueType = 2,
                             Order = 2,
                             Priority = 1,
-                            StatusId = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
-                            Summary = "Third Issue"
+                            StatusId = "d07312ce-4428-4295-ae98-beb8d9d56128",
+                            Summary = "Welcome Email Not Sending to New Users"
                         });
                 });
 
             modelBuilder.Entity("KanbanBoard.Core.Models.Status", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("BoardId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -170,30 +175,30 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b802e4bc-4571-47f9-8ca9-6b9e296426a1",
-                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7585),
+                            Id = "d07312ce-4428-4295-ae98-beb8d9d56128",
+                            BoardId = "c3ceaabd-cddc-44c3-8df9-d66de110d41f",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7480),
                             Name = "To Do"
                         },
                         new
                         {
-                            Id = "3bc6432b-a186-4b9a-ae9d-dbcbd39d9102",
-                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7591),
+                            Id = "f769e6c4-5740-48c4-9d13-6692948a7fad",
+                            BoardId = "c3ceaabd-cddc-44c3-8df9-d66de110d41f",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7486),
                             Name = "In Progress"
                         },
                         new
                         {
-                            Id = "6c294f46-95e0-49a6-a40d-d889617901ab",
-                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7656),
+                            Id = "48f95687-d3cc-490e-963d-e58c4de3a94f",
+                            BoardId = "c3ceaabd-cddc-44c3-8df9-d66de110d41f",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7541),
                             Name = "Testing"
                         },
                         new
                         {
-                            Id = "70026360-304a-4eb4-b55a-98d8d16e78bd",
-                            BoardId = "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630",
-                            CreatedDate = new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7660),
+                            Id = "094d988c-567f-4b96-b6c2-808c8ba8dbee",
+                            BoardId = "c3ceaabd-cddc-44c3-8df9-d66de110d41f",
+                            CreatedDate = new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7546),
                             Name = "Done"
                         });
                 });
@@ -201,54 +206,57 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("KanbanBoard.Core.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("text");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -265,21 +273,21 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("KanbanBoard.Core.Models.UserIssues", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("IssueId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("IssueId1")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId1")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -297,19 +305,19 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -324,17 +332,19 @@ namespace KanbanBoard.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -347,17 +357,19 @@ namespace KanbanBoard.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -369,17 +381,17 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -391,10 +403,10 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -406,16 +418,16 @@ namespace KanbanBoard.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 

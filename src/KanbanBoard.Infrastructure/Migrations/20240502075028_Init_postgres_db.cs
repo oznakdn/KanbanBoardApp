@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KanbanBoard.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_db : Migration
+    public partial class Init_postgres_db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +18,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,21 +32,22 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    ProfilePicture = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,10 +58,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "Boards",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,11 +72,11 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,11 +93,11 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,10 +114,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,8 +134,8 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,10 +158,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,10 +178,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "Statuses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    BoardId = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    BoardId = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,14 +198,14 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "Issues",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Summary = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Priority = table.Column<int>(type: "INTEGER", nullable: false),
-                    IssueType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false),
-                    StatusId = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Summary = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Priority = table.Column<int>(type: "integer", nullable: false),
+                    IssueType = table.Column<int>(type: "integer", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    StatusId = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,11 +222,11 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Text = table.Column<string>(type: "TEXT", nullable: false),
-                    IssueId = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    IssueId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -247,11 +249,11 @@ namespace KanbanBoard.Infrastructure.Migrations
                 name: "UserIssues",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    IssueId = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId1 = table.Column<string>(type: "TEXT", nullable: true),
-                    IssueId1 = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    IssueId = table.Column<string>(type: "text", nullable: false),
+                    UserId1 = table.Column<string>(type: "text", nullable: true),
+                    IssueId1 = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -283,17 +285,17 @@ namespace KanbanBoard.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Boards",
                 columns: new[] { "Id", "CreatedDate", "Description", "Title" },
-                values: new object[] { "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7250), "First Board Description", "First Board" });
+                values: new object[] { "c3ceaabd-cddc-44c3-8df9-d66de110d41f", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7293), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.", "Revamping User Onboarding" });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
                 columns: new[] { "Id", "BoardId", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "3bc6432b-a186-4b9a-ae9d-dbcbd39d9102", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7591), "In Progress" },
-                    { "6c294f46-95e0-49a6-a40d-d889617901ab", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7656), "Testing" },
-                    { "70026360-304a-4eb4-b55a-98d8d16e78bd", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7660), "Done" },
-                    { "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "3ff2dabf-8e89-4fd3-9c4e-6cf6456c5630", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7585), "To Do" }
+                    { "094d988c-567f-4b96-b6c2-808c8ba8dbee", "c3ceaabd-cddc-44c3-8df9-d66de110d41f", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7546), "Done" },
+                    { "48f95687-d3cc-490e-963d-e58c4de3a94f", "c3ceaabd-cddc-44c3-8df9-d66de110d41f", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7541), "Testing" },
+                    { "d07312ce-4428-4295-ae98-beb8d9d56128", "c3ceaabd-cddc-44c3-8df9-d66de110d41f", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7480), "To Do" },
+                    { "f769e6c4-5740-48c4-9d13-6692948a7fad", "c3ceaabd-cddc-44c3-8df9-d66de110d41f", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7486), "In Progress" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,9 +303,9 @@ namespace KanbanBoard.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "IssueType", "Order", "Priority", "StatusId", "Summary" },
                 values: new object[,]
                 {
-                    { "5dfd93a0-476f-49cc-b187-096ee968abf8", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7717), "Third Issue Description", 2, 2, 1, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "Third Issue" },
-                    { "8a5e18b5-ec44-4785-97ae-a13ed61224d5", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7713), "Second Issue Description", 0, 1, 4, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "Second Issue" },
-                    { "a8c61dbc-7091-41d1-bc9f-d11d59c69228", new DateTime(2024, 4, 25, 14, 53, 38, 914, DateTimeKind.Local).AddTicks(7708), "First Issue Description", 1, 0, 2, "b802e4bc-4571-47f9-8ca9-6b9e296426a1", "First Issue" }
+                    { "5d5bfc94-6f77-47af-ade7-09e8cecc47bb", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7579), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.", 0, 0, 2, "d07312ce-4428-4295-ae98-beb8d9d56128", " Create Interactive Tutorial for New Users" },
+                    { "9523a06a-d799-4422-b2f1-fb6400eacedd", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7589), "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.", 2, 2, 1, "d07312ce-4428-4295-ae98-beb8d9d56128", "Welcome Email Not Sending to New Users" },
+                    { "f12b2b8c-5626-49de-9798-b5ce61c373e3", new DateTime(2024, 5, 2, 7, 50, 28, 441, DateTimeKind.Utc).AddTicks(7584), "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.", 1, 1, 4, "d07312ce-4428-4295-ae98-beb8d9d56128", "Design Mobile-Friendly Welcome Screen" }
                 });
 
             migrationBuilder.CreateIndex(
