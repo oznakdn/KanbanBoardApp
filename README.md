@@ -12,7 +12,7 @@ dotnet run
 ## appsettings.json 
 ```csharp
  "ConnectionStrings": {
-   "SqliteConnection": "Data Source = it should be enter own directory path for connection string"
+   "PostgresConnection": "Server=127.0.0.1;Port=5432;Database=KanbanBoardDB;User Id=[your username];Password=[your password];"
  }
 ```
 
