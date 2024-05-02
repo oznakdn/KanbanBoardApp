@@ -25,25 +25,13 @@ public static class ServiceConfigurationExtension
 
     }
 
-    //public static void AddSeedData(this IServiceProvider provider)
-    //{
-    //    var scope = provider.CreateScope();
-    //    var user = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-    //    if (user is null)
-    //    {
-    //        user!.CreateAsync(new User
-    //        {
-    //            Email = "john.doe@mail.com",
-    //            UserName = "john_doe"
-    //        }, "Password123*").Wait();
-    //    }
-    //}
 
     public static void AddSeedData(this IApplicationBuilder builder)
     {
         var scope = builder.ApplicationServices.CreateScope();
         var user = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-        if (user is null)
+        
+        if (!user.Users.Any())
         {
             user!.CreateAsync(new User
             {
