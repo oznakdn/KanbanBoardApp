@@ -2,6 +2,7 @@
 using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.WebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;

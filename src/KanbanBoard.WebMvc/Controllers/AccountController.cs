@@ -3,7 +3,9 @@ using KanbanBoard.Application.Dtos.IdentityDtos;
 using KanbanBoard.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KanbanBoard.WebMvc.Controllers;
 

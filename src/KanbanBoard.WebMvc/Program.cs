@@ -1,12 +1,14 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using KanbanBoard.Application.ServiceExtensions;
-
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddServiceContainer(builder.Configuration);
+builder.Services.AddServiceContainer(builder.Configuration, "PostgresConnection");
 
 
 builder.Services.AddNotyf(conf =>
@@ -19,6 +21,7 @@ builder.Services.AddNotyf(conf =>
 var app = builder.Build();
 
 app.UseNotyf();
+app.AddSeedData();
 
 if (!app.Environment.IsDevelopment())
 {
