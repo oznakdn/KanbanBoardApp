@@ -42,55 +42,16 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="right">
-            <table class="table">
-                <tr>
-                    <td class="title search col-md-9">
-                        <div class="inner-addon right-addon">
-                            <input class="col-md-12" type="search" placeholder="search...">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </div>
-                    </td>
-                    <th valign="middle" colspan="2" class="title text-center">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan="2" class="type">Statistics</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="date">Project</td>
-                </tr>
-                <tr>
-                    <td class="docs">
-                        <p class="ndoc">Story <i class="fa-solid fa-sm fa-bookmark text-success mx-1"></i></p>
-                        <p class="distr">Continue:5 </p>
-                        <p class="storage">Completed:10 </p>
-                    </td>
-                    <td class="docdate"></td>
-                </tr>
-                <tr>
-                    <td class="docs">
-                        <p class="ndoc">Task <i class="fa-solid fa-sm fa-list-check text-primary mx-1"></i></p>
-                        <p class="distr">Continue:2</p>
-                        <p class="storage">Completed:8</p>
-                    </td>
-                    <td class="docdate"></td>
-                </tr>
-                <tr>
-                    <td class="docs">
-                        <p class="ndoc">Bug <i class="fa-solid fa-sm fa-bug text-danger mx-1"></i></p>
-                        <p class="distr">Continue:6</p>
-                        <p class="storage">Completed:10</p>
-                    </td>
-                    <td class="docdate"></td>
-                </tr>
-            </table>
+            @(await Component.InvokeAsync("GetIssueStatistics"))
         </div>
     }
+
+
 
     <div class="container-fluid">
         <main role="main">
             @RenderBody()
+
         </main>
     </div>
 
