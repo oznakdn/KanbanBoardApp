@@ -44,7 +44,6 @@
         display: block;
         width: 100%;
         padding: 0.875rem 1.125rem;
-        font-size: 0.875rem;
         font-weight: 400;
         line-height: 1;
         color: #69707a;
@@ -90,14 +89,20 @@
                         <!--  Default Profile picture image-->
                         <img class="img-account-profile rounded-circle mb-2" src="./pictures/DefaultProfilePicture.jpg" alt="">
                         <br />
-                        <button class="btn btn-primary" type="button">Upload new image</button>
+                        <form method="post" asp-action="UploadPicture" enctype="multipart/form-data">
+                            <input type="file" name="file" class="form-control" />
+                            <button class="btn btn-primary mt-2" type="submit">Upload new image</button>
+                        </form>
                     }
                     else
                     {
                         <!-- Profile picture image-->
                         <img class="img-account-profile rounded-circle mb-2" src="@Model.Picture" alt="">
                         <br />
-                        <button class="btn btn-primary" type="button">Update image</button>
+                        <form method="post" asp-action="UpdatePicture" enctype="multipart/form-data">
+                            <input type="file" name="file" class="form-control" />
+                            <button class="btn btn-primary mt-2" type="submit">Update image</button>
+                        </form>
                     }
 
                 </div>
