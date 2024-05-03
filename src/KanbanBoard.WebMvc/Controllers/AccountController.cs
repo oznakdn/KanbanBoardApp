@@ -2,10 +2,14 @@
 using KanbanBoard.Application.Dtos.IdentityDtos;
 using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.Core.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KanbanBoard.WebMvc.Controllers;
 
@@ -39,12 +43,12 @@ public class AccountController : Controller
         {
             errors.Add("Username cannot be empty!");
         }
-        if(string.IsNullOrWhiteSpace(login.Password))
+        if (string.IsNullOrWhiteSpace(login.Password))
         {
             errors.Add("Password cannot be empty!");
         }
 
-        if(errors.Count>0)
+        if (errors.Count > 0)
         {
             errors.ForEach(error =>
             {
@@ -139,7 +143,7 @@ public class AccountController : Controller
         return RedirectToAction(nameof(Login));
     }
 
-    public async Task<IActionResult>Profile()
+    public async Task<IActionResult> Profile()
     {
         ViewBag.pageName = "Account / Profile";
         var username = User.Identity!.Name;
@@ -159,6 +163,106 @@ public class AccountController : Controller
         };
 
         return View(profileDto);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(string username, string email, string firstName, string lastName)
+    {
+        var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
+
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = username;
+        user.Email = email;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            _notyfService.Success("Profile has been updated successful.");
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            _notyfService.Error(error.Description);
+        }
+        return RedirectToAction(nameof(Profile));
+
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdatePicture(IFormFile file)
+    {
+        var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
+
+        if (user!.ProfilePicture == file.FileName)
+        {
+            _notyfService.Warning("Picture is already exist!");
+            return RedirectToAction(nameof(Profile));
+        }
+
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pictures", file.FileName);
+
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+
+
+        using var stream = new FileStream(path, FileMode.Create);
+        user.ProfilePicture = file.FileName;
+        await file.CopyToAsync(stream);
+
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            _notyfService.Success("Profile picture has been updated successful.");
+            return RedirectToAction(nameof(Profile));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            _notyfService.Error(error.Description);
+        }
+        return RedirectToAction(nameof(Profile));
+
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UploadPicture(IFormFile file)
+    {
+        var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
+
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/pictures", file.FileName);
+
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+
+
+        using var stream = new FileStream(path, FileMode.Create);
+        user!.ProfilePicture = file.FileName;
+        await file.CopyToAsync(stream);
+
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            _notyfService.Success("Profile picture has been updated successful.");
+            return RedirectToAction(nameof(Profile));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            _notyfService.Error(error.Description);
+        }
+        return RedirectToAction(nameof(Profile));
+
+
     }
 
 }

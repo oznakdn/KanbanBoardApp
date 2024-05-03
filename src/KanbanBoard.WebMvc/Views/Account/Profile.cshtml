@@ -113,23 +113,23 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <form>
+                    <form method="post" asp-action="Update">
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1">Username (how your name will appear to other users on the site)</label>
-                            <input class="form-control" type="text"  value="@Model.Username">
+                            <input class="form-control" type="text" name="username"  value="@Model.Username">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1">First name</label>
-                                <input class="form-control"  type="text" value="@Model.FirstName">
+                                <input class="form-control"  type="text" name="firstName" value="@Model.FirstName">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1">Last name</label>
-                                <input class="form-control" type="text" value="@Model.LastName">
+                                <input class="form-control" type="text" name="lastName" value="@Model.LastName">
                             </div>
                         </div>
                         <!-- Form Row        -->
@@ -148,7 +148,7 @@
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1">Email address</label>
-                            <input class="form-control" type="email"  value="@Model.Email">
+                            <input class="form-control" type="email" name="email"  value="@Model.Email">
                         </div>
                         <!-- Form Row-->
                         <!--<div class="row gx-3 mb-3">-->
@@ -164,7 +164,7 @@
                             </div>
                         </div>-->
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button">Save changes</button>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
                     </form>
                 </div>
             </div>
