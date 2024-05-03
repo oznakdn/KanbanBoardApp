@@ -44,8 +44,8 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "715d5c1c-d399-42e8-bb7c-1eba7905c281",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(3650),
+                            Id = "6071b41a-0988-4f84-a530-cbae7783591b",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3632),
                             Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.",
                             Title = "Revamping User Onboarding"
                         });
@@ -117,35 +117,35 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "44be8bc4-a1f4-4570-93d6-86d2aeacd4c9",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(4015),
+                            Id = "0f9c6748-38db-4f5e-9be2-321398750857",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3756),
                             Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.",
                             IssueType = 0,
                             Order = 0,
                             Priority = 2,
-                            StatusId = "067957a1-f487-4887-b282-4de38cba75ce",
+                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
                             Summary = " Create Interactive Tutorial for New Users"
                         },
                         new
                         {
-                            Id = "1602e14d-c1a5-4baf-bb12-544f9cd18bb3",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(4021),
+                            Id = "45bc6968-889b-413e-9b8b-1f03f0529a57",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3763),
                             Description = "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.",
                             IssueType = 1,
                             Order = 1,
                             Priority = 4,
-                            StatusId = "067957a1-f487-4887-b282-4de38cba75ce",
+                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
                             Summary = "Design Mobile-Friendly Welcome Screen"
                         },
                         new
                         {
-                            Id = "dc889724-42eb-4423-8848-12bbd36fb8e9",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(4032),
+                            Id = "8786657d-95f7-46f6-8224-7e56e921f6d9",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3767),
                             Description = "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.",
                             IssueType = 2,
                             Order = 2,
                             Priority = 1,
-                            StatusId = "067957a1-f487-4887-b282-4de38cba75ce",
+                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
                             Summary = "Welcome Email Not Sending to New Users"
                         });
                 });
@@ -175,30 +175,30 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "067957a1-f487-4887-b282-4de38cba75ce",
-                            BoardId = "715d5c1c-d399-42e8-bb7c-1eba7905c281",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(3907),
+                            Id = "48329129-80bd-44da-9ae6-3a487f870777",
+                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3711),
                             Name = "To Do"
                         },
                         new
                         {
-                            Id = "c79dc59c-837a-409d-b88a-ce4eb033f5a2",
-                            BoardId = "715d5c1c-d399-42e8-bb7c-1eba7905c281",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(3954),
+                            Id = "da6c5008-fa4c-460e-a336-042c4e7f410d",
+                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3715),
                             Name = "In Progress"
                         },
                         new
                         {
-                            Id = "0f0ab82b-8a7b-43ac-8c87-2e8df143234b",
-                            BoardId = "715d5c1c-d399-42e8-bb7c-1eba7905c281",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(3957),
+                            Id = "0e1deecf-7b72-4512-ae4d-620c6fd6a576",
+                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3718),
                             Name = "Testing"
                         },
                         new
                         {
-                            Id = "7eb38bc9-b7e0-4501-baa7-345807f2237e",
-                            BoardId = "715d5c1c-d399-42e8-bb7c-1eba7905c281",
-                            CreatedDate = new DateTime(2024, 5, 2, 14, 35, 50, 782, DateTimeKind.Utc).AddTicks(3961),
+                            Id = "be55f79e-3ad2-435e-a9ee-abc271818cff",
+                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3722),
                             Name = "Done"
                         });
                 });
@@ -221,6 +221,14 @@ namespace KanbanBoard.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -251,6 +259,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<string>("TitleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -266,6 +278,8 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("TitleId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -300,6 +314,61 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasIndex("UserId1");
 
                     b.ToTable("UserIssues");
+                });
+
+            modelBuilder.Entity("KanbanBoard.Core.Models.UserTitle", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserTitles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "067f31df-b1ea-4065-8044-11efc56e674f",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3409),
+                            Title = "Software Developer"
+                        },
+                        new
+                        {
+                            Id = "a08d10e1-f7a1-44e3-8855-bb49b66be8ca",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3415),
+                            Title = "Back End Developer"
+                        },
+                        new
+                        {
+                            Id = "a38da88c-1624-4828-a4a2-26322a83ef50",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3421),
+                            Title = "Front End Developer"
+                        },
+                        new
+                        {
+                            Id = "c291e23a-8e76-43a1-821b-2e538f31dfda",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3440),
+                            Title = "Software Engineer"
+                        },
+                        new
+                        {
+                            Id = "d82d5e4a-b0ed-4ac0-b1b5-8c2694fe4b85",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3444),
+                            Title = "DevOps Engineer"
+                        },
+                        new
+                        {
+                            Id = "14dc479b-8def-4ec8-a435-184aa993e389",
+                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3450),
+                            Title = "Product Manager"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -475,6 +544,17 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.Navigation("Board");
                 });
 
+            modelBuilder.Entity("KanbanBoard.Core.Models.User", b =>
+                {
+                    b.HasOne("KanbanBoard.Core.Models.UserTitle", "Title")
+                        .WithMany("Users")
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Title");
+                });
+
             modelBuilder.Entity("KanbanBoard.Core.Models.UserIssues", b =>
                 {
                     b.HasOne("KanbanBoard.Core.Models.Issue", null)
@@ -575,6 +655,11 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("UserIssues");
+                });
+
+            modelBuilder.Entity("KanbanBoard.Core.Models.UserTitle", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,9 +31,8 @@ public static class ServiceConfigurationExtension
         services.AddScoped<IBoardRepository, BoardRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
-
+        services.AddScoped<IUserTitleRepository, UserTitleRepository>();
 
         services.AddScoped<IRepositoryManager, RepositoryManager>();
-
     }
 }

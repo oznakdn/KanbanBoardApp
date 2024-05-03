@@ -8,6 +8,7 @@ public interface IRepositoryManager : IAsyncDisposable
     IBoardRepository Board { get; }
     IStatusRepository Status { get; }
     ICommentRepository Comment { get; }
+    IUserTitleRepository UserTitle { get; }
 
     Task<int> SaveAsync(CancellationToken cancellationToken = default(CancellationToken));
 

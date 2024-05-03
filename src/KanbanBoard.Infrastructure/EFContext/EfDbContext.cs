@@ -6,6 +6,7 @@ namespace KanbanBoard.Infrastructure.EFContext;
 
 public class EfDbContext : IdentityDbContext<User>
 {
+    public static string User_Title_Id = Guid.NewGuid().ToString();
     public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
     {
 
@@ -15,13 +16,47 @@ public class EfDbContext : IdentityDbContext<User>
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Issue> Issues { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<UserTitle> UserTitles { get; set; }
     public DbSet<UserIssues> UserIssues { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-      
+
+        builder.Entity<UserTitle>()
+            .HasData(
+            new UserTitle
+            {
+                Id = User_Title_Id,
+                Title = "Software Developer"
+            },
+            new UserTitle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = "Back End Developer"
+            },
+            new UserTitle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = "Front End Developer"
+            },
+            new UserTitle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = "Software Engineer"
+            },
+            new UserTitle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = "DevOps Engineer"
+            },
+            new UserTitle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = "Product Manager"
+            });
+
 
         string boardId = Guid.NewGuid().ToString();
 
@@ -65,10 +100,14 @@ public class EfDbContext : IdentityDbContext<User>
                   CreatedDate = DateTime.UtcNow
               });
 
+
+        string issueId = Guid.NewGuid().ToString();
+
         builder.Entity<Issue>()
             .HasData(
             new Issue
             {
+                Id = issueId,
                 StatusId = statusId,
                 Summary = " Create Interactive Tutorial for New Users",
                 Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.",
@@ -97,7 +136,9 @@ public class EfDbContext : IdentityDbContext<User>
                 Order = 2,
                 CreatedDate = DateTime.UtcNow
             });
-       
+
+
+
 
 
         builder.Entity<UserIssues>()
@@ -109,6 +150,8 @@ public class EfDbContext : IdentityDbContext<User>
             .HasOne<Issue>()
             .WithMany(x => x.UserIssues)
             .HasForeignKey(x => x.IssueId);
+
+
 
 
     }
