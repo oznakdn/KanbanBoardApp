@@ -39,7 +39,7 @@ public static class ServiceConfigurationExtension
                 UserName = "john_doe",
                 FirstName = "John",
                 LastName = "Doe",
-                TitleId = "067f31df-b1ea-4065-8044-11efc56e674f",
+                TitleId = "1c0a1307-6f4a-44e4-a5b9-b2ed3a7f91d8",
                 ProfilePicture = "https://us.123rf.com/450wm/djvstock/djvstock1508/djvstock150806893/44095667-web-developer-design-vector-illustration-eps-10.jpg?ver=6"
             }, "Password123*").Wait();
         }

@@ -17,4 +17,9 @@ public class UserTitleService : IUserTitleService
     {
        return await _repository.UserTitle.FindByIdAsync(id, cancellationToken);
     }
+
+    public async Task<IEnumerable<UserTitle>> GetTitlesAsync(CancellationToken cancellationToken = default)
+    {
+        return await _repository.UserTitle.FindAllAsync(cancellationToken);
+    }
 }
