@@ -1,25 +1,27 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using KanbanBoard.Application.Dtos.IdentityDtos;
+using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KanbanBoard.WebMvc.Controllers;
 
 public class AccountController : Controller
 {
+    private readonly IServiceManager _manager;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly INotyfService _notyfService;
 
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, INotyfService notyfService)
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, INotyfService notyfService, IServiceManager manager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _notyfService = notyfService;
+        _manager = manager;
     }
 
 
@@ -135,6 +137,28 @@ public class AccountController : Controller
         await _signInManager.SignOutAsync();
         _notyfService.Success("You have successfully logged out of the system.");
         return RedirectToAction(nameof(Login));
+    }
+
+    public async Task<IActionResult>Profile()
+    {
+        ViewBag.pageName = "Account / Profile";
+        var username = User.Identity!.Name;
+        var user = await _userManager.FindByNameAsync(username!);
+
+        var userTitle = await _manager.UserTitle.GetTitleByIdAsync(user!.TitleId);
+
+        var profileDto = new GetProfileDto
+        {
+            Username = username!,
+            Email = user!.Email!,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            FullName = user.Fullname,
+            Picture = user.ProfilePicture!,
+            Title = userTitle.Title
+        };
+
+        return View(profileDto);
     }
 
 }
