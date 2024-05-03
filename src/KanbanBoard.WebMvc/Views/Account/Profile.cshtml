@@ -87,7 +87,7 @@
                     @if (string.IsNullOrEmpty(Model.Picture))
                     {
                         <!--  Default Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" src="./pictures/DefaultProfilePicture.jpg" alt="">
+                        <img class="img-account-profile rounded mb-2 img-fluid img-thumbnail" src="~/images/DefaultProfilePicture.jpg">
                         <br />
                         <form method="post" asp-action="UploadPicture" enctype="multipart/form-data">
                             <input type="file" name="file" class="form-control" />
@@ -97,7 +97,7 @@
                     else
                     {
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" src="@Model.Picture" alt="">
+                        <img class="img-account-profile rounded mb-2 img-fluid img-thumbnail" src="~/images/@Model.Picture">
                         <br />
                         <form method="post" asp-action="UpdatePicture" enctype="multipart/form-data">
                             <input type="file" name="file" class="form-control" />

@@ -2,14 +2,14 @@
 using KanbanBoard.Application.Dtos.IdentityDtos;
 using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.Core.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace KanbanBoard.WebMvc.Controllers;
 
@@ -77,8 +77,11 @@ public class AccountController : Controller
     }
 
 
-    public IActionResult Register()
+    public async Task<IActionResult> Register()
     {
+        var titles = await _manager.UserTitle.GetTitlesAsync();
+        ViewBag.titles = new SelectList(titles, "Id", "Title");
+       
         ViewBag.pageName = "Account / Sign up";
         return View();
     }
@@ -88,6 +91,14 @@ public class AccountController : Controller
     {
         var errors = new List<string>();
 
+        if(string.IsNullOrWhiteSpace(register.FirstName))
+        {
+            errors.Add("First name cannot be empty!");
+        }
+        if (string.IsNullOrWhiteSpace(register.LastName))
+        {
+            errors.Add("Last name cannot be empty!");
+        }
         if (string.IsNullOrWhiteSpace(register.Username))
         {
             errors.Add("Username cannot be empty!");
@@ -122,8 +133,11 @@ public class AccountController : Controller
 
         var result = await _userManager.CreateAsync(new User
         {
+            FirstName = register.FirstName,
+            LastName = register.LastName,
             Email = register.Email,
-            UserName = register.Username
+            UserName = register.Username,
+            TitleId = register.TitleId
         }, register.Password);
 
 
@@ -198,21 +212,16 @@ public class AccountController : Controller
     {
         var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
 
-        if (user!.ProfilePicture == file.FileName)
-        {
-            _notyfService.Warning("Picture is already exist!");
-            return RedirectToAction(nameof(Profile));
-        }
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pictures", file.FileName);
-
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
+        // User's Old picture is deleting from the directory
+        System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", user!.ProfilePicture!));
 
 
+        // User's new picture is adding to the directory
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", file.FileName);
         using var stream = new FileStream(path, FileMode.Create);
-        user.ProfilePicture = file.FileName;
         await file.CopyToAsync(stream);
+        user.ProfilePicture = file.FileName;
 
 
         var result = await _userManager.UpdateAsync(user);
@@ -237,15 +246,17 @@ public class AccountController : Controller
     {
         var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/pictures", file.FileName);
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", file.FileName);
 
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
-
+        if (Directory.Exists(path))
+        {
+            _notyfService.Success("Picture is already exists!");
+            return RedirectToAction(nameof(Profile));
+        }
 
         using var stream = new FileStream(path, FileMode.Create);
-        user!.ProfilePicture = file.FileName;
         await file.CopyToAsync(stream);
+        user!.ProfilePicture = file.FileName;
 
 
         var result = await _userManager.UpdateAsync(user);
