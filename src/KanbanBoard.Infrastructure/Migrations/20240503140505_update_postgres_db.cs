@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KanbanBoard.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Update_db : Migration
+    public partial class update_postgres_db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -307,19 +307,19 @@ namespace KanbanBoard.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Boards",
                 columns: new[] { "Id", "CreatedDate", "Description", "Title" },
-                values: new object[] { "6071b41a-0988-4f84-a530-cbae7783591b", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3632), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.", "Revamping User Onboarding" });
+                values: new object[] { "3cf7cef8-4eea-4b1a-b571-017429303b31", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5904), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.", "Revamping User Onboarding" });
 
             migrationBuilder.InsertData(
                 table: "UserTitles",
                 columns: new[] { "Id", "CreatedDate", "Title" },
                 values: new object[,]
                 {
-                    { "067f31df-b1ea-4065-8044-11efc56e674f", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3409), "Software Developer" },
-                    { "14dc479b-8def-4ec8-a435-184aa993e389", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3450), "Product Manager" },
-                    { "a08d10e1-f7a1-44e3-8855-bb49b66be8ca", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3415), "Back End Developer" },
-                    { "a38da88c-1624-4828-a4a2-26322a83ef50", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3421), "Front End Developer" },
-                    { "c291e23a-8e76-43a1-821b-2e538f31dfda", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3440), "Software Engineer" },
-                    { "d82d5e4a-b0ed-4ac0-b1b5-8c2694fe4b85", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3444), "DevOps Engineer" }
+                    { "1c0a1307-6f4a-44e4-a5b9-b2ed3a7f91d8", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(3162), "Software Developer" },
+                    { "21f34fa3-54c6-473b-a96f-8ec4d3113199", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5468), "Front End Developer" },
+                    { "293de072-6357-4e8e-a50b-34ec5ad78978", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5501), "DevOps Engineer" },
+                    { "afec862d-d2d7-4871-b87a-da72144d7f29", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(3170), "Back End Developer" },
+                    { "db5409fb-03de-49b6-82d4-ec11fde8b722", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5495), "Software Engineer" },
+                    { "f244101e-28f5-4772-ba1e-2ec29e7c4a7b", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5506), "Product Manager" }
                 });
 
             migrationBuilder.InsertData(
@@ -327,10 +327,10 @@ namespace KanbanBoard.Infrastructure.Migrations
                 columns: new[] { "Id", "BoardId", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "0e1deecf-7b72-4512-ae4d-620c6fd6a576", "6071b41a-0988-4f84-a530-cbae7783591b", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3718), "Testing" },
-                    { "48329129-80bd-44da-9ae6-3a487f870777", "6071b41a-0988-4f84-a530-cbae7783591b", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3711), "To Do" },
-                    { "be55f79e-3ad2-435e-a9ee-abc271818cff", "6071b41a-0988-4f84-a530-cbae7783591b", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3722), "Done" },
-                    { "da6c5008-fa4c-460e-a336-042c4e7f410d", "6071b41a-0988-4f84-a530-cbae7783591b", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3715), "In Progress" }
+                    { "6de73fa7-7868-49aa-980d-2bb8fc8f08a5", "3cf7cef8-4eea-4b1a-b571-017429303b31", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5954), "In Progress" },
+                    { "78f44e78-0ce8-482b-8948-f4746c453e50", "3cf7cef8-4eea-4b1a-b571-017429303b31", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5949), "To Do" },
+                    { "db135a82-d6dd-4cde-8d8a-25fefd2393fe", "3cf7cef8-4eea-4b1a-b571-017429303b31", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5960), "Done" },
+                    { "f132249f-84ed-4a0b-a2b2-ac93101ab142", "3cf7cef8-4eea-4b1a-b571-017429303b31", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5957), "Testing" }
                 });
 
             migrationBuilder.InsertData(
@@ -338,9 +338,9 @@ namespace KanbanBoard.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "IssueType", "Order", "Priority", "StatusId", "Summary" },
                 values: new object[,]
                 {
-                    { "0f9c6748-38db-4f5e-9be2-321398750857", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3756), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.", 0, 0, 2, "48329129-80bd-44da-9ae6-3a487f870777", " Create Interactive Tutorial for New Users" },
-                    { "45bc6968-889b-413e-9b8b-1f03f0529a57", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3763), "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.", 1, 1, 4, "48329129-80bd-44da-9ae6-3a487f870777", "Design Mobile-Friendly Welcome Screen" },
-                    { "8786657d-95f7-46f6-8224-7e56e921f6d9", new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3767), "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.", 2, 2, 1, "48329129-80bd-44da-9ae6-3a487f870777", "Welcome Email Not Sending to New Users" }
+                    { "0268888d-bac5-4c62-a226-4a379a7412ef", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6037), "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.", 2, 2, 1, "78f44e78-0ce8-482b-8948-f4746c453e50", "Welcome Email Not Sending to New Users" },
+                    { "a8f959c5-8b21-4b25-9fb9-01f6616c4c4a", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6027), "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.", 1, 1, 4, "78f44e78-0ce8-482b-8948-f4746c453e50", "Design Mobile-Friendly Welcome Screen" },
+                    { "bb43ed44-da0d-4c11-80d7-b1790e005b74", new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6006), "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.", 0, 0, 2, "78f44e78-0ce8-482b-8948-f4746c453e50", " Create Interactive Tutorial for New Users" }
                 });
 
             migrationBuilder.CreateIndex(

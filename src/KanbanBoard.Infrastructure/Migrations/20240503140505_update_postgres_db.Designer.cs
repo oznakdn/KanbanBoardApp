@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KanbanBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20240503073215_Update_db")]
-    partial class Update_db
+    [Migration("20240503140505_update_postgres_db")]
+    partial class update_postgres_db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,8 +47,8 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6071b41a-0988-4f84-a530-cbae7783591b",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3632),
+                            Id = "3cf7cef8-4eea-4b1a-b571-017429303b31",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5904),
                             Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application.",
                             Title = "Revamping User Onboarding"
                         });
@@ -120,35 +120,35 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0f9c6748-38db-4f5e-9be2-321398750857",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3756),
+                            Id = "bb43ed44-da0d-4c11-80d7-b1790e005b74",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6006),
                             Description = "Develop a step-by-step interactive tutorial that guides new users through the key features and functionalities of the application. This will improve user experience and decrease the learning curve for new users.",
                             IssueType = 0,
                             Order = 0,
                             Priority = 2,
-                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
+                            StatusId = "78f44e78-0ce8-482b-8948-f4746c453e50",
                             Summary = " Create Interactive Tutorial for New Users"
                         },
                         new
                         {
-                            Id = "45bc6968-889b-413e-9b8b-1f03f0529a57",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3763),
+                            Id = "a8f959c5-8b21-4b25-9fb9-01f6616c4c4a",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6027),
                             Description = "Design a user-friendly and informative welcome screen specifically optimized for mobile devices. This will ensure a smooth onboarding experience for users accessing the application on their phones.",
                             IssueType = 1,
                             Order = 1,
                             Priority = 4,
-                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
+                            StatusId = "78f44e78-0ce8-482b-8948-f4746c453e50",
                             Summary = "Design Mobile-Friendly Welcome Screen"
                         },
                         new
                         {
-                            Id = "8786657d-95f7-46f6-8224-7e56e921f6d9",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3767),
+                            Id = "0268888d-bac5-4c62-a226-4a379a7412ef",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(6037),
                             Description = "Investigate and fix the bug that is preventing welcome emails from being sent to new users upon registration. This will ensure users receive important information and next steps after signing up.",
                             IssueType = 2,
                             Order = 2,
                             Priority = 1,
-                            StatusId = "48329129-80bd-44da-9ae6-3a487f870777",
+                            StatusId = "78f44e78-0ce8-482b-8948-f4746c453e50",
                             Summary = "Welcome Email Not Sending to New Users"
                         });
                 });
@@ -178,30 +178,30 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "48329129-80bd-44da-9ae6-3a487f870777",
-                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3711),
+                            Id = "78f44e78-0ce8-482b-8948-f4746c453e50",
+                            BoardId = "3cf7cef8-4eea-4b1a-b571-017429303b31",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5949),
                             Name = "To Do"
                         },
                         new
                         {
-                            Id = "da6c5008-fa4c-460e-a336-042c4e7f410d",
-                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3715),
+                            Id = "6de73fa7-7868-49aa-980d-2bb8fc8f08a5",
+                            BoardId = "3cf7cef8-4eea-4b1a-b571-017429303b31",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5954),
                             Name = "In Progress"
                         },
                         new
                         {
-                            Id = "0e1deecf-7b72-4512-ae4d-620c6fd6a576",
-                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3718),
+                            Id = "f132249f-84ed-4a0b-a2b2-ac93101ab142",
+                            BoardId = "3cf7cef8-4eea-4b1a-b571-017429303b31",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5957),
                             Name = "Testing"
                         },
                         new
                         {
-                            Id = "be55f79e-3ad2-435e-a9ee-abc271818cff",
-                            BoardId = "6071b41a-0988-4f84-a530-cbae7783591b",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3722),
+                            Id = "db135a82-d6dd-4cde-8d8a-25fefd2393fe",
+                            BoardId = "3cf7cef8-4eea-4b1a-b571-017429303b31",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5960),
                             Name = "Done"
                         });
                 });
@@ -338,38 +338,38 @@ namespace KanbanBoard.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "067f31df-b1ea-4065-8044-11efc56e674f",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3409),
+                            Id = "1c0a1307-6f4a-44e4-a5b9-b2ed3a7f91d8",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(3162),
                             Title = "Software Developer"
                         },
                         new
                         {
-                            Id = "a08d10e1-f7a1-44e3-8855-bb49b66be8ca",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3415),
+                            Id = "afec862d-d2d7-4871-b87a-da72144d7f29",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(3170),
                             Title = "Back End Developer"
                         },
                         new
                         {
-                            Id = "a38da88c-1624-4828-a4a2-26322a83ef50",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3421),
+                            Id = "21f34fa3-54c6-473b-a96f-8ec4d3113199",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5468),
                             Title = "Front End Developer"
                         },
                         new
                         {
-                            Id = "c291e23a-8e76-43a1-821b-2e538f31dfda",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3440),
+                            Id = "db5409fb-03de-49b6-82d4-ec11fde8b722",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5495),
                             Title = "Software Engineer"
                         },
                         new
                         {
-                            Id = "d82d5e4a-b0ed-4ac0-b1b5-8c2694fe4b85",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3444),
+                            Id = "293de072-6357-4e8e-a50b-34ec5ad78978",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5501),
                             Title = "DevOps Engineer"
                         },
                         new
                         {
-                            Id = "14dc479b-8def-4ec8-a435-184aa993e389",
-                            CreatedDate = new DateTime(2024, 5, 3, 7, 32, 15, 495, DateTimeKind.Utc).AddTicks(3450),
+                            Id = "f244101e-28f5-4772-ba1e-2ec29e7c4a7b",
+                            CreatedDate = new DateTime(2024, 5, 3, 14, 5, 4, 962, DateTimeKind.Utc).AddTicks(5506),
                             Title = "Product Manager"
                         });
                 });
