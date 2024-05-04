@@ -1,4 +1,95 @@
-﻿<div class="row d-flex mt-3">
+﻿
+<style>
+    body {
+        margin-top: 20px;
+    }
+
+    .card {
+        min-width: 0;
+        margin: 20px 10px;
+        width: 100%;
+        background: #0c0c0c;
+        color: white;
+        -webkit-transition: 0.3s ease all;
+        transition: 0.3s ease all;
+        border: none;
+        border-radius: 5px;
+        padding: 0;
+        margin-bottom: 30px;
+    }
+
+        .card .card-img-container .card-img {
+            background-size: cover;
+            background-position: top center;
+            display: block;
+            height: 175px;
+        }
+
+        .card .card-img {
+            height: 150px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .card .card-img-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .card .card-content {
+            padding: 20px 20px 40px;
+            text-align: center;
+        }
+
+        .card .card-meta {
+            font-size: 12px;
+        }
+
+        .card .meta-box {
+            margin-right: 20px;
+        }
+
+        .card .card-content h2 {
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .card h2 a {
+            color: #d0d0d0;
+            -webkit-transition: 0.3s ease all;
+            transition: 0.3s ease all;
+        }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .card .meta-tags a:last-child {
+        margin-right: 0;
+        border-bottom-right-radius: 5px;
+    }
+
+    .card .meta-tags a:first-child {
+        border-top-left-radius: 5px;
+    }
+
+    .card .meta-tags a {
+        display: inline-block;
+        padding: 3px 8px;
+        color: #fff;
+        -webkit-transition: 0.3s ease all;
+        transition: 0.3s ease all;
+    }
+</style>
+
+
+
+
+
+<div class="row d-flex mt-3">
     <div class="display-6 text-start col">Projects</div>
     <div class="text-end col">
         <button class="btn btn-success btn-sm" data-bs-toggle="offcanvas" data-bs-target="#createBoard"><i class="fa-solid fa-plus"></i> New</button>
@@ -54,27 +145,46 @@
                     console.log(strData);
                     let html = "";
                     $.each(data, (index, value) => {
-                        html += `<div class='col'>
-                                      <a class="text-center text-white" href="/Status/Index/${value.id}" style="text-decoration-line:none;">
-                                             <div class="card bg-primary">
-                                                   <div class="card-body">
-                                                        <span class="text-white">${value.title}</span>
-                                                   </div>
-                                              </div>
-                                      </a>
-                                                  
-                                   </div>
-                                         `
+                        html += `
+                                       <div class="col-2">
+                                         <div class="card card-favorite">
+                                            <div class="card-img-container text-center">
+                                                <a href="/Status/Index/${value.id}" style="background-color: #0c0c0c" class="card-img">
+                                               <i class="fa-solid fa-sm fa-bookmark text-primary" style="width: 50px; height: 50px; margin-top:60px"></i>
+                                                </a>
+                                            </div>
+                                         <div class="card-content" style="background-color: gray">
+                                                <h2>${value.title.substring(0,10)}...</h2>
+                                         </div>
+                                        </div>
+                                      </div>
+
+                                             `
                     });
 
-                    $('#boards').html(html);
+                    $('#boards').html(html + `
+
+                        <div class="col-2">
+                            <div class="card card-favorite">
+                                 <div class="card-img-container text-center">
+                                       <a data-bs-toggle="offcanvas" data-bs-target="#createBoard" type="button"   class="card-img bg-primary">
+                                         <i class="fa-solid fa-plus text-white" style="width: 50px; height: 50px; margin-top:60px"></i>
+                                       </a>
+                                  </div>
+                               <div class="card-content" style="background-color: gray">
+                                     <h2>Create a new project</h2>
+                               </div>
+                                 </div>
+                        </div>
+
+                    `);
                 }
 
-                
+
 
             });
 
-            
+
 
         });
     </script>
