@@ -7,7 +7,7 @@
 
 <a href="https://github.com/oznakdn/KanbanBoardApp/tree/master/docs">Other pages :point_left:</a>
 
-
+<a href="https://github.com/oznakdn/KanbanBoardApp/blob/master/docs/screen_video.mp4">Video</a>
 
 
 # Local
