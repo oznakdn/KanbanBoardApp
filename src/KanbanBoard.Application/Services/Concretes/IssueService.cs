@@ -183,7 +183,7 @@ public class IssueService : IIssueService
     public async Task<GetIssueDto> GetIssueByIdAsync(string id, CancellationToken cancellationToken = default)
     {
 
-        var issue = await _repository.Issue.FindByIdAsync(id, cancellationToken);
+        var issue = await _repository.Issue.FindByIdAsync(id, cancellationToken, x => x.Comments);
 
         return new GetIssueDto
         {
