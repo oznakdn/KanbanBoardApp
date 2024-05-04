@@ -13,12 +13,13 @@
 
 
 <div class="row d-flex mt-3">
-    <div class="display-6 text-start col">Board / @ViewData["boardTitle"]</div>
+    <div class="display-6 text-start col mb-3">Board / @ViewData["boardTitle"]</div>
     <div class="text-end col">
         <a asp-action="Index" asp-controller="Board" class="btn btn-secondary">Projects</a>
     </div>
+    <hr />
+
 </div>
-<hr />
 
 
 <div class="row d-flex">
@@ -31,7 +32,7 @@
         <span class="text-warning m-4">Medium <i class="fa-solid fa-sm fa-arrow-up text-warning"></i></span>
         <span class="text-success m-4">Lowest - Low <i class="fa-solid fa-sm fa-arrow-up text-success"></i></span>
     </div>
-    <div class="col text-end">
+    <div class="col text-end mb-3">
         <button class="btn btn-sm btn-warning align-items-end" data-bs-toggle="offcanvas" data-bs-target="#updateBoard"><i class="fa-solid fa-pen"></i></button>
 
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="updateBoard" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -69,11 +70,11 @@
         </div>
     </div>
 
+    <hr />
 
 </div>
 
 
-<hr />
 
 
 
