@@ -7,7 +7,10 @@
 
 <a href="https://github.com/oznakdn/KanbanBoardApp/tree/master/docs">Other pages :point_left:</a>
 
-<a href="https://github.com/oznakdn/KanbanBoardApp/blob/master/docs/screen_video.mp4">Screen view :point_left:</a>
+
+https://github.com/oznakdn/KanbanBoardApp/assets/79724084/e9d65415-e210-4b5f-9b64-5aa0580edaf9
+
+
 
 
 # Local
