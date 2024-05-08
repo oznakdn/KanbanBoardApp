@@ -52,8 +52,8 @@ public class IssueController : Controller
         TempData["issueId"] = id;
         TempData["userId"] = User.FindFirstValue(ClaimTypes.NameIdentifier);
         TempData["boardId"] = issueDto.BoardId;
-        var issueComments = await _manager.Comment.GetCommentsByIssueIdAsync(id);
-        TempData["issueComments"] = issueComments;
+        //var issueComments = await _manager.Comment.GetCommentsByIssueIdAsync(id);
+        //TempData["issueComments"] = issueComments;
 
         return View(issueDto);
 
