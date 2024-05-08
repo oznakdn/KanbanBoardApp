@@ -6,7 +6,8 @@ namespace KanbanBoard.Infrastructure.EFContext;
 
 public class EfDbContext : IdentityDbContext<User>
 {
-    public static string User_Title_Id = Guid.NewGuid().ToString();
+
+
     public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
     {
 
@@ -28,7 +29,7 @@ public class EfDbContext : IdentityDbContext<User>
             .HasData(
             new UserTitle
             {
-                Id = User_Title_Id,
+                Id = new Guid("dce1456b-cb9f-4089-a16c-a9f451d7b463").ToString(),
                 Title = "Software Developer"
             },
             new UserTitle
@@ -60,6 +61,8 @@ public class EfDbContext : IdentityDbContext<User>
 
         string boardId = Guid.NewGuid().ToString();
 
+
+ 
         builder.Entity<Board>()
             .HasData(new Board
             {

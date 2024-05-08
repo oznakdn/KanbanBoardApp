@@ -19,14 +19,7 @@ public abstract class AbstractRepository<T> : IRepository<T>
         _dbSet = _dbContext.Set<T>();
     }
 
-    private int GetNextOrder(string statusId)
-    {
-        // Veritabanından kolondaki son order'ı alır
-        var lastOrder = _dbContext.Issues.Where(t => t.StatusId == statusId).Max(x => x.Order);
-        return lastOrder + 1; // Sonraki order'ı hesaplar
-    }
-
-    public virtual void Insers(T model) => _dbSet.Add(model);
+    public virtual void Insert(T model) => _dbContext.Entry<T>(model).State = EntityState.Added;
 
     public virtual void Update(T model) => _dbContext.Entry<T>(model).State = EntityState.Modified;
 

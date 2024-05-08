@@ -3,6 +3,7 @@ using KanbanBoard.Infrastructure.EFContext;
 using KanbanBoard.Infrastructure.Repositories.Concretes;
 using KanbanBoard.Infrastructure.Repositories.Interfaces;
 using KanbanBoard.Infrastructure.Repositories.Manager;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,4 +36,5 @@ public static class ServiceConfigurationExtension
 
         services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
+
 }

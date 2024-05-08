@@ -5,7 +5,7 @@ namespace KanbanBoard.Infrastructure.Repositories.Interfaces;
 
 public interface IRepository<T> where T : AbstractModel
 {
-    void Insers(T model);
+    void Insert(T model);
     void Update(T model);
     void Delete(T model);
     void DeleteById(string id);
