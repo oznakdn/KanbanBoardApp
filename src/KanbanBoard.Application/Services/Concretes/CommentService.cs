@@ -23,7 +23,7 @@ public class CommentService : ICommentService
             Text = createComment.Text
         };
 
-        _repositoryManager.Comment.Insers(comment);
+        _repositoryManager.Comment.Insert(comment);
         await _repositoryManager.SaveAsync(cancellationToken);
 
         var issue = await _repositoryManager.Issue.FindByIdAsync(comment.IssueId, cancellationToken, x => x.Status!);

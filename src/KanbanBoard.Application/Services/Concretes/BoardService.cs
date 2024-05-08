@@ -21,7 +21,7 @@ public class BoardService : IBoardService
             Description = createBoard.Description
         };
 
-        _repository.Board.Insers(board);
+        _repository.Board.Insert(board);
         await _repository.SaveAsync(cancellationToken);
     }
 

@@ -2,9 +2,12 @@
 using KanbanBoard.Application.Services.Interface;
 using KanbanBoard.Application.Services.Manager;
 using KanbanBoard.Core.Models;
+using KanbanBoard.Infrastructure.EFContext;
 using KanbanBoard.Infrastructure.ServiceExtensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,9 +29,10 @@ public static class ServiceConfigurationExtension
     }
 
 
-    public static void AddSeedData(this IApplicationBuilder builder)
+    public static void AddSeedData(this IApplicationBuilder app)
     {
-        var scope = builder.ApplicationServices.CreateScope();
+        app.AutoMigration();
+        var scope = app.ApplicationServices.CreateScope();
         var user = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
         if (!user.Users.Any())
@@ -39,10 +43,19 @@ public static class ServiceConfigurationExtension
                 UserName = "john_doe",
                 FirstName = "John",
                 LastName = "Doe",
-                TitleId = "1c0a1307-6f4a-44e4-a5b9-b2ed3a7f91d8",
-                ProfilePicture = "https://us.123rf.com/450wm/djvstock/djvstock1508/djvstock150806893/44095667-web-developer-design-vector-illustration-eps-10.jpg?ver=6"
+                ProfilePicture= "johndoe.jpg",
+                TitleId = new Guid("dce1456b-cb9f-4089-a16c-a9f451d7b463").ToString()
             }, "Password123*").Wait();
         }
+
+    }
+
+
+    private static void AutoMigration(this IApplicationBuilder app)
+    {
+        var scope = app.ApplicationServices.CreateScope();
+        var database = scope.ServiceProvider.GetRequiredService<EfDbContext>();
+        database.Database.EnsureCreated();
     }
 
 

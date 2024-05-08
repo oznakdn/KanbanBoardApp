@@ -28,7 +28,7 @@ public class IssueService : IIssueService
             Order = await _repository.Issue.GetNextOrderAsync(createIssue.StatusId)
         };
 
-        _repository.Issue.Insers(issue);
+        _repository.Issue.Insert(issue);
         await _repository.SaveAsync(cancellationToken);
 
         var status = await _repository.Status.FindByIdAsync(issue.StatusId, cancellationToken);

@@ -23,7 +23,7 @@ public class StatusService : IStatusService
             Name = createStatus.Name
         };
 
-        _repository.Status.Insers(status);
+        _repository.Status.Insert(status);
         await _repository.SaveAsync(cancellationToken);
     }
 
