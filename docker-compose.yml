@@ -11,7 +11,7 @@ services:
       - "postgres_image"
     build:
       context: .
-      dockerfile: C:/Users/ozana/OneDrive/Desktop/KanbanBoardApp/src/KanbanBoard.WebMvc/Dockerfile
+      dockerfile: C:/Users/W10/OneDrive/Desktop/KanbanBoardApp/src/KanbanBoard.WebMvc/Dockerfile
     ports:
       - "8081:80"     
     environment:

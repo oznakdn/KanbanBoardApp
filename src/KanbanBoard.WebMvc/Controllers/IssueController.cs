@@ -5,7 +5,6 @@ using KanbanBoard.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -52,6 +51,7 @@ public class IssueController : Controller
 
         TempData["issueId"] = id;
         TempData["userId"] = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        TempData["boardId"] = issueDto.BoardId;
         var issueComments = await _manager.Comment.GetCommentsByIssueIdAsync(id);
         TempData["issueComments"] = issueComments;
 
