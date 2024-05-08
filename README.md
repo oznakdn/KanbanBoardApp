@@ -11,8 +11,6 @@
 https://github.com/oznakdn/KanbanBoardApp/assets/79724084/e9d65415-e210-4b5f-9b64-5aa0580edaf9
 
 
-
-
 # Local
 ```
 git clone https://github.com/oznakdn/KanbanBoardApp.git
@@ -39,8 +37,13 @@ dotnet ef database update --startup-project [KanbanBoard.WebMvc directory path]
 
 
 # Dockerizing
-
 ```
 cd KanbanBoardApp
-docker-compose up -d
+docker-compose up
+```
+
+# Login
+```csharp
+username = john_doe
+password = Password123*
 ```
